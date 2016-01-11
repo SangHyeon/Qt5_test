@@ -2,10 +2,11 @@
 #define GLWIDGET_H
 
 #include <QGLWidget>
-#include <glu.h>
+#include <GL/glu.h>
 #include <QTimer>
 #include <QMouseEvent>
 #include <math.h>
+#include <GL/glut.h>
 
 class GLWidget : public QGLWidget
 {
