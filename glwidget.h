@@ -21,6 +21,11 @@ public slots:
 private:
     QTimer qtimer;
     float x, y, z;
+    //0 : x, 1 : y, 2 : z
+    GLfloat one[3];
+    GLfloat two[3];
+    GLfloat three[3];
+    GLfloat four[3];
 
 };
 

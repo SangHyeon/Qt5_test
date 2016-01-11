@@ -23,24 +23,53 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <zorder></zorder>
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <item row="0" column="0" colspan="4">
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
         </property>
-       </spacer>
+       </widget>
       </item>
-      <item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="text">
+         <string>Form3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>Form1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="text">
+         <string>Form4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="text">
+         <string>Form2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
        <widget class="QPushButton" name="pushButton">
         <property name="text">
          <string>&amp;Quit</string>
@@ -70,8 +99,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>331</x>
-     <y>299</y>
+     <x>787</x>
+     <y>437</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
