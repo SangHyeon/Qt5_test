@@ -5,6 +5,15 @@ GLWidget::GLWidget(QWidget *parent) :
 {
     connect(&qtimer, SIGNAL(timeout()), this, SLOT(update()));
     qtimer.start(16);
+
+    setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
+    scaling = 1.0f;
+    rotationX = 0.0;
+    rotationY = 0.0;
+    rotationZ = 0.0;
+    transrationX = 0.0;
+    transrationY = 0.0;
+    transrationZ = 0.0;
 }
 
 void GLWidget::initializeGL() {
@@ -35,7 +44,48 @@ void GLWidget::initializeGL() {
        glMatrixMode(GL_MODELVIEW);
 }
 
+void GLWidget::mousePressEvent(QMouseEvent *event)
+{
+ lastPos = event->pos();
+}
+
+void GLWidget::mouseMoveEvent(QMouseEvent *event)
+{
+ GLfloat dx = GLfloat(event->x() - lastPos.x()) / width();
+ GLfloat dy = GLfloat(event->y() - lastPos.y()) / height();
+ if (event->buttons() & Qt::LeftButton) {
+  rotationX += 180 * dy;
+  rotationY += 180 * dx;
+  updateGL();
+ } else if (event->buttons() & Qt::RightButton) {
+  transrationX += dx*200;
+  transrationY -= dy*200;
+  updateGL();
+ } else if (event->buttons() & Qt::MidButton) {
+  rotationZ  += 200*dx;
+  updateGL();
+ }
+ lastPos = event->pos();
+}
+
+void GLWidget::wheelEvent(QWheelEvent *event)
+{
+ double numDegrees = -event->delta()/8.0;
+ double numSteps = numDegrees/15.0;
+ scaling *= pow(1.125,numSteps);
+ updateGL();
+}
+
+
 void GLWidget::paintGL() {
+
+    glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity(); //좌표계를 리셋합니다.
+     glTranslatef(transrationX,transrationY,0.0);
+     glRotatef(rotationX, 1.0, 0.0, 0.0);
+     glRotatef(rotationY, 0.0, 1.0, 0.0);
+     glRotatef(rotationZ, 0.0, 0.0, 1.0);
+     glScalef(scaling,scaling,scaling);
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
        glClear(GL_COLOR_BUFFER_BIT);
@@ -47,11 +97,11 @@ void GLWidget::paintGL() {
        // for(auto &d : copters)
        //    copter->render();
 
-       glLoadIdentity();
+      /* glLoadIdentity();
        glRotatef(40.0f,1.0f,0.0f,0.0f);
        glRotatef(-40.0f,0.0f,1.0f,0.0f);
        glRotatef(0.0f,0.0f,0.0f,1.0f);
-
+*/
        // x
        glBegin(GL_LINES);
        {

@@ -4,6 +4,8 @@
 #include <QGLWidget>
 #include <glu.h>
 #include <QTimer>
+#include <QMouseEvent>
+#include <math.h>
 
 class GLWidget : public QGLWidget
 {
@@ -13,6 +15,9 @@ public:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event);
 
 signals:
 
@@ -26,6 +31,15 @@ private:
     GLfloat two[3];
     GLfloat three[3];
     GLfloat four[3];
+
+    GLfloat rotationX;
+    GLfloat rotationY;
+    GLfloat rotationZ;
+    GLfloat transrationX;
+    GLfloat transrationY;
+    GLfloat transrationZ;
+    GLfloat scaling;
+    QPoint lastPos;
 
 };
 
