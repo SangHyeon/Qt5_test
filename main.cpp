@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QtOpenGL>
-#include <qwt/qwt.h>
+#include <glu.h>
 
 int main(int argc, char *argv[])
 {

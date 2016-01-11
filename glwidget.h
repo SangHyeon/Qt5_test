@@ -2,6 +2,8 @@
 #define GLWIDGET_H
 
 #include <QGLWidget>
+#include <glu.h>
+#include <QTimer>
 
 class GLWidget : public QGLWidget
 {
@@ -15,6 +17,10 @@ public:
 signals:
 
 public slots:
+
+private:
+    QTimer qtimer;
+    float x, y, z;
 
 };
 
