@@ -7,6 +7,8 @@
 #include <QMouseEvent>
 #include <math.h>
 #include <GL/glut.h>
+#include <QDebug>
+
 
 class GLWidget : public QGLWidget
 {
@@ -19,6 +21,7 @@ public:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
+    void test_button(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
 
 signals:
 
@@ -26,8 +29,7 @@ public slots:
 
 private:
     QTimer qtimer;
-    float x, y, z;
-    //0 : x, 1 : y, 2 : z
+    //float x, y, z;
     GLfloat one[3];
     GLfloat two[3];
     GLfloat three[3];

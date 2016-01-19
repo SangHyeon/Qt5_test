@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <GL/glu.h>
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    GLfloat one[3];
+    GLfloat two[3];
+    GLfloat three[3];
+    GLfloat four[3];
+
 };
 
 #endif // MAINWINDOW_H

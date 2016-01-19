@@ -19,7 +19,7 @@ GLWidget::GLWidget(QWidget *parent) :
 void GLWidget::initializeGL() {
     int w = 1600;
     int h = 900;
-    x=y=z=0;
+
     one[0]=130;
     one[1]=140;
     one[2]=190;
@@ -93,19 +93,6 @@ void GLWidget::paintGL() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
        glClear(GL_COLOR_BUFFER_BIT);
 
-       // Draw Scene
-
-       // ui->render();
-
-       // for(auto &d : copters)
-       //    copter->render();
-
-      /* glLoadIdentity();
-       glRotatef(40.0f,1.0f,0.0f,0.0f);
-       glRotatef(-40.0f,0.0f,1.0f,0.0f);
-       glRotatef(0.0f,0.0f,0.0f,1.0f);
-*/
-       // x
        glBegin(GL_LINES);
        {
           glColor3d(255,0,0);
@@ -132,48 +119,6 @@ void GLWidget::paintGL() {
        }
        glEnd();
 
-       /*glPointSize(10);
-       glBegin(GL_POINTS);
-       {
-           glColor3f(255, 0, 0);
-           glVertex3f(30+x, -45, 55);
-           glColor3f(0, 255, 0);
-           glVertex3f(-30, 45+y, 55);
-           glColor3f(255, 255, 255);
-           glVertex3f(-30, 45+y, 55+z);
-           glColor3f(0, 0, 255);
-           glVertex3f(30, 45, -55+z);
-       }
-       glEnd();
-       if(x==300)
-           x=y=z=0;
-       else {
-           x+=1;
-           y+=1;
-           z+=1;
-       }
-       */
-
-       /*
-        * read the drone data
-
-        GLfloat point_size[4];
-
-
-
-        point_size[0] = (one[0]+one[1]+one[2])/60+10;
-        point_size[1] = (two[0]+two[1]+two[2])/60+10;
-        point_size[2] = (three[0]+three[1]+three[2])/60+10;
-        point_size[3] = (four[0]+four[1]+four[2])/60+10;
-*/
-       /*glPointSize(point_size[0]);
-       glBegin(GL_POINTS);
-       {
-           glColor3f(255, 0, 0);
-           glVertex3f(one[0], one[2], one[1]);
-       }
-       glEnd();
-       */
         glPushMatrix();
              glColor3f(255, 0, 0);
              glTranslatef(one[0], one[2], one[1]);
@@ -182,32 +127,13 @@ void GLWidget::paintGL() {
         glPopMatrix();
         //glFlush();
 
-        /*
-       glPointSize(point_size[1]);
-       glBegin(GL_POINTS);
-       {
-           glColor3f(0, 255, 0);
-           glVertex3f(two[0], two[2], two[1]);
-       }
-       glEnd();
-       */
         glPushMatrix();
              glColor3f(0, 255, 0);
              glTranslatef(two[0], two[2], two[1]);
              glScalef(3, 3, 3);
              glutSolidCube(5);
         glPopMatrix();
-       // glFlush();
 
-        /*
-       glPointSize(point_size[2]);
-       glBegin(GL_POINTS);
-       {
-           glColor3f(255, 255, 255);
-           glVertex3f(three[0], three[2], three[1]);
-       }
-       glEnd();
-       */
         glPushMatrix();
              glColor3f(255, 255, 255);
              glTranslatef(three[0], three[2], three[1]);
@@ -215,15 +141,6 @@ void GLWidget::paintGL() {
              glutSolidCube(5);
         glPopMatrix();
 
-        /*
-       glPointSize(point_size[3]);
-       glBegin(GL_POINTS);
-       {
-           glColor3f(0, 0, 255);
-           glVertex3f(four[0], four[2], four[1]);
-       }
-       glEnd();
-       */
         glPushMatrix();
              glColor3f(0, 0, 255);
              glTranslatef(four[0], four[2], four[1]);
@@ -269,8 +186,27 @@ void GLWidget::paintGL() {
 
        glFlush();
 
+
 }
 
 void GLWidget::resizeGL(int w, int h) {
 
+}
+
+void GLWidget::test_button(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four) {
+    one[0]=t_one[0];
+    one[1]=t_one[1];
+    one[2]=t_one[2];
+
+    two[0]=t_two[0];
+    two[1]=t_two[1];
+    two[2]=t_two[2];
+
+    three[0]=t_three[0];//130;
+    three[1]=t_three[1];
+    three[2]=t_three[2];//110;
+
+    four[0]=t_four[0];
+    four[1]=t_four[1];
+    four[2]=t_four[2];
 }

@@ -23,7 +23,6 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <zorder></zorder>
      </widget>
     </item>
     <item>
@@ -99,8 +98,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>787</x>
-     <y>437</y>
+     <x>780</x>
+     <y>439</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
