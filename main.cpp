@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "server.h"
+#include <iostream>
 #include <QApplication>
 #include <QtOpenGL>
 #include <GL/glu.h>
