@@ -1,4 +1,4 @@
-#include "server.h"
+/*#include "server.h"
 #include <iostream>
 using namespace std;
 
@@ -26,3 +26,4 @@ void Server::startRead() {
     cout<<buffer<<endl;
     client->close();//we will not closing!!!!
 }
+*/

@@ -1,4 +1,4 @@
-#ifndef SERVER_H
+/*#ifndef SERVER_H
 #define SERVER_H
 
 #include <QtNetwork>
@@ -21,3 +21,4 @@ private:
 };
 
 #endif // SERVER_H
+*/
