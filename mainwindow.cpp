@@ -89,9 +89,16 @@ void MainWindow::sendRequest() {
 }
 
 void MainWindow::readMessage() {
-    QDataStream in(&tcpSocket);
+    qDebug("ready for read data");
+    //while(tcpSocket.canReadLine()) {
+    QString line = QString::fromUtf8(tcpSocket.readLine()).trimmed();
+    qDebug(line.toUtf8());
+    ui->widget->test_button(one, two, three, four);
+    //}
 
-    while(true) {
+    //QDataStream in(&tcpSocket);
+
+    /*while(true) {
         if(nextBlockSize == 0) {
             if(tcpSocket.bytesAvailable() < sizeof(quint16))
                 continue;//...?!
@@ -112,7 +119,7 @@ void MainWindow::readMessage() {
 
             break;
         }
-    }
+    }*/
 }
 
 void MainWindow::connectionClosedByServer() {
