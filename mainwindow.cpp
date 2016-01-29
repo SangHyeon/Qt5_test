@@ -66,12 +66,17 @@ void MainWindow::quad_data\
 
 
 void MainWindow::connectToServer() {
-    tcpSocket.connectToHost("112.108.39.164", 8080);
+    tcpSocket.connectToHost("112.108.39.164", 9090);
     //requier to servre for connect
 }
-
+//reference
+//https://code.google.com/archive/p/brown-ros-pkg/wikis/RosbridgeProtocolMarkdown.wiki
 void MainWindow::onConnectServer(){
     qDebug("connect Complete");
+    QByteArray msg = "raw\r\n\r\n";
+    QByteArray JSON = "\x00{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}\xff";
+    tcpSocket.write(msg);
+    tcpSocket.write(JSON);
 }
 
 void MainWindow::sendRequest() {
