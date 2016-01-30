@@ -28,7 +28,7 @@ while True:
         data = s.recv(100);
         print >>sys.stderr, 'received "%s"' % data
         ping += 1
-        data = 'dron %s' % ping
+        #data = 'dron %s' % ping
         if ping == 100 :
             break
         time.sleep(1)
