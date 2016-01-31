@@ -66,7 +66,7 @@ void MainWindow::quad_data\
 
 
 void MainWindow::connectToServer() {
-    tcpSocket.connectToHost("112.108.39.164", 9090);
+    tcpSocket.connectToHost("112.108.39.252", 9090);
     //requier to servre for connect
 }
 //reference
@@ -74,9 +74,15 @@ void MainWindow::connectToServer() {
 void MainWindow::onConnectServer(){
     qDebug("connect Complete");
     QByteArray msg = "raw\r\n\r\n";
-    QByteArray JSON = "\x00{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}\xff";
-    tcpSocket.write(msg);
-    tcpSocket.write(JSON);
+    //char* JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
+    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
+    //string JSON = "\x00{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}\xff";
+    tcpSocket.write(msg, msg.size());
+    tcpSocket.write(JSON, JSON.size());
+
+    qDebug("%d", msg.size());
+    qDebug("%d", JSON.size());
+    qDebug("send message!");
 }
 
 void MainWindow::sendRequest() {

@@ -11,7 +11,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #sock.listen(1)
 
 #s = socket() 
-s.connect(('112.108.39.164', 9090)) 
+s.connect(('112.108.39.252', 8080)) 
 s.send('raw\r\n\r\n')
 
 print "==========="
