@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    connect_flag = 0;
+    disconnect_flag = 1;
     ui->setupUi(this);
 
     this->nextBlockSize = 0;
@@ -15,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&tcpSocket, SIGNAL(readyRead()), this, SLOT(readMessage()));
     connect(&tcpSocket, SIGNAL(disconnected()), this, SLOT(connectionClosedByServer()));
     connect(&tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
+    //connect(ui->forward_button, SIGNAL(pressed()), this, SLOT(QAbstractButton::autoRepeat()));
 
     one[0]=130;
     one[1]=140;
@@ -66,19 +69,36 @@ void MainWindow::quad_data\
 
 
 void MainWindow::connectToServer() {
-    tcpSocket.connectToHost("112.108.39.252", 9090);
+
+    qDebug() << "In connect To Server "<<connect_flag;
+    if(connect_flag == 0) {
+        tcpSocket.connectToHost("112.108.39.238", 9090);
+    }
+    else if(connect_flag == 1 && disconnect_flag == 1) {
+        connect_flag = 0;
+    }
     //requier to servre for connect
 }
+
 //reference
 //https://code.google.com/archive/p/brown-ros-pkg/wikis/RosbridgeProtocolMarkdown.wiki
 void MainWindow::onConnectServer(){
     qDebug("connect Complete");
+
+    connect_flag = 1;
+    disconnect_flag = 0;
+    press_flag = 0;
+    ui->connectButton->setText("disconnect");
+
     QByteArray msg = "raw\r\n\r\n";
-    //char* JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
-    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
-    //string JSON = "\x00{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}\xff";
+    //QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
+    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/imu/data_raw\"}";
+    QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
+    QByteArray TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"Hello, Donkie\"}}";
     tcpSocket.write(msg, msg.size());
     tcpSocket.write(JSON, JSON.size());
+    tcpSocket.write(ADVER, ADVER.size());
+    tcpSocket.write(TOPIC, TOPIC.size());
 
     qDebug("%d", msg.size());
     qDebug("%d", JSON.size());
@@ -100,43 +120,54 @@ void MainWindow::sendRequest() {
 }
 
 void MainWindow::readMessage() {
-    qDebug("ready for read data");
-    //while(tcpSocket.canReadLine()) {
+    //read & send JSON msgs
+    //qDebug("ready for read data");
     QString line = QString::fromUtf8(tcpSocket.readLine()).trimmed();
     qDebug(line.toUtf8());
     ui->widget->test_button(one, two, three, four);
-    //}
-
-    //QDataStream in(&tcpSocket);
-
-    /*while(true) {
-        if(nextBlockSize == 0) {
-            if(tcpSocket.bytesAvailable() < sizeof(quint16))
-                continue;//...?!
-            else
-                in>>nextBlockSize;
-            continue;
-        }
-        else if(tcpSocket.bytesAvailable() < nextBlockSize)
-            continue;
-        else if(tcpSocket.bytesAvailable() >= nextBlockSize) {
-            QString strBuf;
-            in >> strBuf;
-
-            qDebug(strBuf.toUtf8());
-            //strBuf has data
-
-            this->nextBlockSize = 0;
-
-            break;
-        }
-    }*/
 }
 
 void MainWindow::connectionClosedByServer() {
+    ui->connectButton->setText("connect");
+    //connect_flag = 0;
     tcpSocket.close();
 }
 
 void MainWindow::error() {
     qDebug(tcpSocket.errorString().toUtf8());
+    connect_flag = 0;
+    qDebug("I'm Here22");
+    ui->connectButton->setText("connect");
+}
+
+void MainWindow::on_connectButton_clicked()
+{
+    qDebug() << connect_flag;
+    if(connect_flag) {
+        qDebug("socket close");
+
+        tcpSocket.close();
+        ui->connectButton->setText("connect");
+        disconnect_flag = 1;
+    }
+}
+
+void MainWindow::on_forward_button_pressed()
+{
+    press_flag = 1;
+    qDebug("FUCK");
+}
+
+void MainWindow::on_forward_button_released()
+{
+    qDebug("That");
+    press_flag = 0;
+}
+
+void MainWindow::mouseIsPressed(QMouseEvent *event) {
+    qDebug() <<event->MouseButtonPress;
+}
+
+int MainWindow::get_flag() {
+    return press_flag;
 }
