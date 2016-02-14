@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->nextBlockSize = 0;
     connect(ui->connectButton, SIGNAL(clicked()), this, SLOT(connectToServer()));
     connect(&tcpSocket, SIGNAL(connected()), this, SLOT(onConnectServer()));
-    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(sendRequest()));
+    //connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(sendRequest()));
     connect(&tcpSocket, SIGNAL(readyRead()), this, SLOT(readMessage()));
     connect(&tcpSocket, SIGNAL(disconnected()), this, SLOT(connectionClosedByServer()));
     connect(&tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
@@ -41,13 +41,13 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+/*
 void MainWindow::on_pushButton_2_clicked()
 {
     qDebug("Clicked Button!!");
     ui->widget->test_button(one, two, three, four);
 }
-
+*/
 void MainWindow::quad_data\
 (GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four) {
     one[0]=t_one[0];
@@ -72,7 +72,7 @@ void MainWindow::connectToServer() {
 
     qDebug() << "In connect To Server "<<connect_flag;
     if(connect_flag == 0) {
-        tcpSocket.connectToHost("112.108.39.238", 9090);
+        tcpSocket.connectToHost("112.108.39.225", 9090);
     }
     else if(connect_flag == 1 && disconnect_flag == 1) {
         connect_flag = 0;
@@ -88,13 +88,14 @@ void MainWindow::onConnectServer(){
     connect_flag = 1;
     disconnect_flag = 0;
     press_flag = 0;
+    manual_flag = 0;
     ui->connectButton->setText("disconnect");
 
     QByteArray msg = "raw\r\n\r\n";
     //QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
     QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/imu/data_raw\"}";
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
-    QByteArray TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"Hello, Donkie\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
     tcpSocket.write(msg, msg.size());
     tcpSocket.write(JSON, JSON.size());
     tcpSocket.write(ADVER, ADVER.size());
@@ -107,7 +108,7 @@ void MainWindow::onConnectServer(){
 
 void MainWindow::sendRequest() {
     //need modifying
-    QByteArray block;
+   /* QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out<<quint16(0);
 
@@ -116,7 +117,7 @@ void MainWindow::sendRequest() {
 
     out<<quint16(block.size() - sizeof(quint16));
 
-    tcpSocket.write(block);//send to socket
+    tcpSocket.write(block);//send to socket*/
 }
 
 void MainWindow::readMessage() {
@@ -124,6 +125,10 @@ void MainWindow::readMessage() {
     //qDebug("ready for read data");
     QString line = QString::fromUtf8(tcpSocket.readLine()).trimmed();
     qDebug(line.toUtf8());
+    if(press_flag == 1) {
+        tcpSocket.write(TOPIC, TOPIC.size());
+        qDebug() << "===========fuck==========";
+    }
     ui->widget->test_button(one, two, three, four);
 }
 
@@ -154,20 +159,172 @@ void MainWindow::on_connectButton_clicked()
 
 void MainWindow::on_forward_button_pressed()
 {
+    if(manual_flag == 0)
+        return;
     press_flag = 1;
     qDebug("FUCK");
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2001000\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_forward_button_released()
 {
+
+    if(manual_flag == 0)
+        return;
     qDebug("That");
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
-
+/*
 void MainWindow::mouseIsPressed(QMouseEvent *event) {
     qDebug() <<event->MouseButtonPress;
 }
 
 int MainWindow::get_flag() {
     return press_flag;
+}*/
+
+void MainWindow::on_right_button_pressed()
+{
+
+    if(manual_flag == 0)
+        return;
+    press_flag = 1;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2000010\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_right_button_released()
+{
+
+    if(manual_flag == 0)
+        return;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    press_flag = 0;
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_left_button_pressed()
+{
+
+    if(manual_flag == 0)
+        return;
+    press_flag = 1;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2000001\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_left_button_released()
+{
+
+    if(manual_flag == 0)
+        return;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    press_flag = 0;
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_back_button_pressed()
+{
+
+    if(manual_flag == 0)
+        return;
+    press_flag = 1;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2000100\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_back_button_released()
+{
+
+    if(manual_flag == 0)
+        return;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    press_flag = 0;
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_up_button_pressed()
+{
+
+    if(manual_flag == 0)
+        return;
+    press_flag = 1;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2100000\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_up_button_released()
+{
+
+    if(manual_flag == 0)
+        return;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    press_flag = 0;
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_down_button_pressed()
+{
+
+    if(manual_flag == 0)
+        return;
+    press_flag = 1;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2010000\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_down_button_released()
+{
+
+    if(manual_flag == 0)
+        return;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    press_flag = 0;
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_take_off_button_clicked()
+{
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"0\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_landing_button_clicked()
+{
+    manual_flag = 0;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"3\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_stop_button_clicked()
+{
+    manual_flag = 0;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_form1_button_clicked()
+{
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"11\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_form2_button_clicked()
+{
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"12\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_form3_button_clicked()
+{
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"13\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}
+
+void MainWindow::on_manual_button_clicked()
+{
+    manual_flag = 1;
 }

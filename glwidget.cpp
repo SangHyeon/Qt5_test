@@ -38,21 +38,27 @@ void GLWidget::initializeGL() {
     four[1]=140;
     four[2]=160;
 
-    GLfloat MyLightPosition[] = {1.0, 2.0, 3.0, 1.0};
-    GLfloat MyLightDirection[] = {3.0, 4.0, 3.0};       // 빛의 방향
-    //GLfloat MySpotAngle[] = {50.0};                     // 조명각
-    GLfloat MyLightDiffuse[] = {1.0, 0.0, 0.0, 1.0};    // 확산반사 입사광은 주로 적색
+    GLfloat LightPos[] = { 0.0f, 0.0f, 5000.0f, 1.0 };
+    GLfloat LightDir[] = { 0.0f, 0.0f, -1.0f, 1.0 };
 
-    glClearColor(1, 1, 0, 1);
+    GLfloat AmbientLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    GLfloat DiffuseLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    GLfloat SpecularLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    glShadeModel(GL_FLAT);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
 
-
-    glLightfv(GL_LIGHT0, GL_POSITION, MyLightPosition);
-    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, MyLightDirection);  // 방향 설정
-    glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 2.0);     // 승수 설정
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, MyLightDiffuse);
+    glLightfv(GL_LIGHT0, GL_POSITION, LightPos);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, AmbientLight);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, DiffuseLight);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, SpecularLight);
+    glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, LightDir);
 
     glEnable(GL_COLOR_MATERIAL);
     glMatrixMode(GL_PROJECTION);
@@ -98,11 +104,17 @@ void GLWidget::wheelEvent(QWheelEvent *event)
 int h = 450;
 
 void GLWidget::paintGL() {
+    GLfloat AmbientGold[] = { 0.24725f, 0.2245f, 0.0645f, 1.0f };
+    GLfloat DiffuseGold[] = { 0.34615f, 0.3143f, 0.0903f, 1.0f };
+    GLfloat SpecularGold[] = { 0.797357f, 0.723991f, 0.366065f, 1.0f };
+    GLfloat ShinessGold = 83.4f;
+
+    GLfloat AmbientBronze[] = { 0.2125f, 0.1275f, 0.054f, 1.0f };
+    GLfloat DiffuseBronze[] = { 0.714f, 0.4284f, 0.18144f, 1.0f };
+    GLfloat SpecularBronze[] = { 0.3935f, 0.2719f, 0.1667f, 1.0f };
+    GLfloat ShinessBronze = 25.6f;
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_CULL_FACE);
-    //glEnable(GL_DEPTH_TEST);
-    glMatrixMode(GL_PROJECTION);
-    //glLoadIdentity(); //좌표계를 리셋합니다.
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity(); //좌표계를 리셋합니다.
     glTranslatef(transrationX,transrationY,0.0);
@@ -112,7 +124,7 @@ void GLWidget::paintGL() {
     glScalef(scaling,scaling,scaling);
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-       glClear(GL_COLOR_BUFFER_BIT);
+       //glClear(GL_COLOR_BUFFER_BIT);
 
        glBegin(GL_LINES);
        {
@@ -136,35 +148,47 @@ void GLWidget::paintGL() {
        {
           glColor3d(0, 0, 255);
           glVertex3f(0.0f, 0.0f, 0.0f);
-          glVertex3f(0.0f, 0.0f, 3000);
+           glVertex3f(0.0f, 0.0f, 3000);
        }
        glEnd();
 
-        glPushMatrix();
-             glColor3f(255, 0, 0);
+       // //////////////////////////////////////////////////////
+
+       glPushMatrix();
+             //glColor3f(128, 0, 0);
+       glClearColor(0.f, 0.f, 0.f, 1.f);
+       //glEnable(GL_COLOR_MATERIAL);
+       glColorMaterial(GL_BACK, GL_DIFFUSE);
+
+       glMaterialfv(GL_FRONT, GL_AMBIENT, AmbientGold);
+       glMaterialfv(GL_FRONT, GL_DIFFUSE, DiffuseGold);
+       glMaterialfv(GL_FRONT, GL_SPECULAR, SpecularGold);
+       glMaterialf(GL_FRONT, GL_SHININESS, ShinessGold);
              glTranslatef(one[0], one[2], one[1]);
-             glScalef(3, 3, 3);
-             glutSolidSphere(5, 50, 50);
+             glScalef(4, 1, 4);
+             //glNormal3f(0.0f, 0.0f, -1.0f);
+             glutSolidSphere(20, 100, 100);
              //glutSolidCube(5);
         glPopMatrix();
         //glFlush();
+        // /////////////////////////////////////////////////////
 
         glPushMatrix();
-             glColor3f(0, 255, 0);
+             glColor3f(0, 128, 0);
              glTranslatef(two[0], two[2], two[1]);
              glScalef(3, 3, 3);
              glutSolidCube(5);
         glPopMatrix();
 
         glPushMatrix();
-             glColor3f(255, 255, 255);
+             glColor3f(128, 128, 128);
              glTranslatef(three[0], three[2], three[1]);
              glScalef(3, 3, 3);
              glutSolidCube(5);
         glPopMatrix();
 
         glPushMatrix();
-             glColor3f(0, 0, 255);
+             glColor3f(0, 0, 128);
              glTranslatef(four[0], four[2], four[1]);
              glScalef(3, 3, 3);
              glutSolidCube(5);
@@ -215,7 +239,6 @@ void GLWidget::paintGL() {
 void GLWidget::resizeGL(int w, int h) {
     this->resize(w, h);
     glViewport(0,0, w, h);
-
 }
 
 void GLWidget::test_button(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four) {

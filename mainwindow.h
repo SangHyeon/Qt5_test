@@ -31,15 +31,49 @@ private slots:
     void readMessage();
     void connectionClosedByServer();
     void error();
-    int get_flag();
+    //int get_flag();
 
-    void on_pushButton_2_clicked();
+    //void on_pushButton_2_clicked();
 
     void on_connectButton_clicked();
 
     void on_forward_button_pressed();
 
     void on_forward_button_released();
+
+    void on_right_button_pressed();
+
+    void on_right_button_released();
+
+    void on_left_button_pressed();
+
+    void on_left_button_released();
+
+    void on_back_button_pressed();
+
+    void on_back_button_released();
+
+    void on_up_button_pressed();
+
+    void on_up_button_released();
+
+    void on_down_button_pressed();
+
+    void on_down_button_released();
+
+    void on_take_off_button_clicked();
+
+    void on_landing_button_clicked();
+
+    void on_stop_button_clicked();
+
+    void on_form1_button_clicked();
+
+    void on_form2_button_clicked();
+
+    void on_form3_button_clicked();
+
+    void on_manual_button_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -49,6 +83,9 @@ private:
     int connect_flag;
     int disconnect_flag;
     int press_flag;
+    int manual_flag;
+
+    QByteArray TOPIC;
 
     GLfloat one[3];
     GLfloat two[3];
