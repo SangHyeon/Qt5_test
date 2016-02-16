@@ -1,7 +1,8 @@
 #include "glwidget.h"
-//#include "ui_mainwindow.h"
-
 #include "cube.h"
+#include "axis.h"
+#include "drone.h"
+#include "ground.h"
 #include <algorithm>
 
 GLWidget::GLWidget(QWidget *parent) :
@@ -33,6 +34,31 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
+    //ground = 2700
+    Material whiteColor;
+    whiteColor.ambient = Color4F( 0.3, 0.3, 0.3, 0.3f );
+    whiteColor.diffuse = Color4F( 0.3, 0.3, 0.3, 0.3f );
+    whiteColor.specular = Color4F( 0.3, 0.3, 0.3, 0.3f );
+    whiteColor.shiness = 3.4f;
+
+    Material redColor;
+    redColor.ambient = Color4F( 0.7, 0.0, 0.0, 1.0f );
+    redColor.diffuse = Color4F( 0.7, 0.0, 0.0, 1.0f );
+    redColor.specular = Color4F( 0.7, 0.0, 0.0, 1.0f );
+    redColor.shiness = 63.4f;
+
+    Material greenColor;
+    greenColor.ambient = Color4F( 0.0, 0.7, 0.0, 1.0f );
+    greenColor.diffuse = Color4F( 0.0, 0.7, 0.0, 1.0f );
+    greenColor.specular = Color4F( 0.0, 0.7, 0.0, 1.0f );
+    greenColor.shiness = 63.4f;
+
+    Material blueColor;
+    blueColor.ambient = Color4F( 0.0, 0.0, 0.7, 1.0f );
+    blueColor.diffuse = Color4F( 0.0, 0.0, 0.7, 1.0f );
+    blueColor.specular = Color4F( 0.0, 0.0, 0.7, 1.0f );
+    blueColor.shiness = 63.4f;
+
     Material goldColor;
     goldColor.ambient = Color4F( 0.24725f, 0.2245f, 0.0645f, 1.0f );
     goldColor.diffuse = Color4F( 0.34615f, 0.3143f, 0.0903f, 1.0f );
@@ -45,26 +71,56 @@ void GLWidget::initializeGL()
     bronzeColor.specular = Color4F( 0.3935f, 0.2719f, 0.1667f, 1.0f );
     bronzeColor.shiness = 25.6f;
 
+    Axis* xxx = new Axis;
+    xxx->setMaterial(redColor);
+    xxx->setPosition(0, 0, 0);
+    xxx->setRotation(45, 0, 0);
+
+    Axis* yyy = new Axis;
+    yyy->setMaterial(greenColor);
+    yyy->setPosition(0, 0, 4500);
+    yyy->setRotation(0, 90, 0);
+
+    Axis* zzz = new Axis;
+    zzz->setMaterial(blueColor);
+    zzz->setPosition(0, -4500, 0);
+    zzz->setRotation(0, 0, 90);
+
+    Drone* d1 = new Drone;
+    d1->setMaterial(goldColor);
+    d1->setPosition(100,  100, 100);
+    d1->setRotation(0, 0, 0);
 
     Cube* c1 = new Cube;
-    c1->setMaterial(goldColor);
-    c1->setPosition(100,  100, 100);
-    c1->setRotation(45,0,0);
+    c1->setMaterial(bronzeColor);
+    c1->setPosition(450,  0, 0);
+    c1->setRotation(57, 0, 0);
 
     Cube* c2 = new Cube;
     c2->setMaterial(bronzeColor);
-    c2->setPosition(200,  100, 100);
-    c2->setRotation(45,0,0);
+    c2->setPosition(-450,  0, 0);
+    c2->setRotation(57,0,0);
 
+    Ground* c3 = new Ground;
+    c3->setMaterial(whiteColor);
+    c3->setPosition(0,  -2750, 0);
+    c3->setRotation(0,0,0);
+
+    objects.push_back(xxx);
+    objects.push_back(yyy);
+    objects.push_back(zzz);
+
+    objects.push_back(d1);
     objects.push_back(c1);
     objects.push_back(c2);
+    objects.push_back(c3);
 
 
     int w = 800;
     int h = 450;
-
+    //0 : x 1 : z 2 : y
     one[0]=0;
-    one[1]=0;
+    one[1]=-100;
     one[2]=0;
 
     two[0]=0;
@@ -155,47 +211,15 @@ void GLWidget::paintGL() {
     glScalef(scaling,scaling,scaling);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-
-    glBegin(GL_LINES);
-    {
-        glColor3d(255,0,0);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(3000, 0.0f, 0.0f);
-    }
-    glEnd();
-
-    // y
-    glBegin(GL_LINES);
-    {
-        glColor3d(0, 255, 0);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(0.0f, 3000, 0.0f);
-    }
-    glEnd();
-
-    // z
-    glBegin(GL_LINES);
-    {
-        glColor3d(0, 0, 255);
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(0.0f, 0.0f, 3000);
-    }
-    glEnd();
-
-
     for(int i = 0 ; i < (int)objects.size() ; ++ i)
     {
+        if(i == 3) {
+        objects[i]->setPosition(one[0], one[1], one[2]);
 
-        objects[i]->setPosition(objects[i]->getPositionX() + 1,
-                                objects[i]->getPositionY() + 1,
-                                objects[i]->getPositionZ() + 1);
-
-        objects[i]->setRotation(objects[i]->getRotationX() + 1.1f,
-                                objects[i]->getRotationY() + 1.1f,
-                                objects[i]->getRotationZ() + 1.1f);
-
-
-
+//        objects[i]->setRotation(objects[i]->getRotationX() + 1.1f,
+//                                objects[i]->getRotationY() + 1.1f,
+//                                objects[i]->getRotationZ() + 1.1f);
+        }
         objects[i]->draw();
     }
 

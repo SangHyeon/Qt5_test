@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     connect_flag = 0;
     disconnect_flag = 1;
+    manual_flag = 0;
     ui->setupUi(this);
 
     this->nextBlockSize = 0;
@@ -72,7 +73,7 @@ void MainWindow::connectToServer() {
 
     qDebug() << "In connect To Server "<<connect_flag;
     if(connect_flag == 0) {
-        tcpSocket.connectToHost("112.108.39.152", 9090);
+        tcpSocket.connectToHost("112.108.39.204", 9090);
     }
     else if(connect_flag == 1 && disconnect_flag == 1) {
         connect_flag = 0;
@@ -93,7 +94,7 @@ void MainWindow::onConnectServer(){
 
     QByteArray msg = "raw\r\n\r\n";
     //QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
-    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FuckingNasang\"}";
+    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/CURRENT_POS\"}";
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
     tcpSocket.write(msg, msg.size());
@@ -124,12 +125,54 @@ void MainWindow::readMessage() {
     //read & send JSON m sgs
     //qDebug("ready for read data");
     QString line = QString::fromUtf8(tcpSocket.readLine()).trimmed();
+    getPosition(line);
+    //{"topic": "/FIRST/CURRENT_POS", "msg": {"y": 3000.0876808544454, "x": 1407.7433628318586, "z": -1780.8053665716345}, "op": "publish"}
     qDebug(line.toUtf8());
     if(press_flag == 1) {
         //tcpSocket.write(TOPIC, TOPIC.size());
         //qDebug() << "===========fuck==========";
     }
     ui->widget->test_button(one, two, three, four);
+}
+
+void MainWindow::getPosition(QString s) {
+    //qDebug(s.toUtf8());
+    //test code
+    //QString tmp = "{\"topic\": \"/FIRST/CURRENT_POS\", \"msg\": {\"y\": 3000.0876808544454, \"x\": 1407.7433628318586, \"z\": -1780.8053665716345}, \"op\": \"publish\"}";
+    //qDebug() <<"asdfad"<<s<<"======";
+    QString tmp = s;
+    QString tmp2 = tmp;
+    QString tmp3 = tmp;
+    int yyy, xxx, zzz;
+
+    QStringList ttt = tmp.split("y");
+    tmp = ttt[1];
+    ttt = tmp.split(" ");
+    tmp = ttt[1];
+    ttt = tmp.split(",");
+    yyy = ttt[0].toDouble();
+
+    ttt = tmp2.split("x");
+    tmp = ttt[1];
+    ttt = tmp.split(" ");
+    tmp = ttt[1];
+    ttt = tmp.split(",");
+    xxx = ttt[0].toDouble();
+
+    ttt = tmp3.split("z");
+    tmp = ttt[1];
+    ttt = tmp.split(" ");
+    tmp = ttt[1];
+    ttt = tmp.split("}");
+    zzz = ttt[0].toDouble();
+
+    one[0] = xxx*(-1);
+    one[2] = yyy;
+    one[1] = zzz;
+
+    ui->widget->test_button(one, two, three, four);
+
+    qDebug() << xxx << yyy << zzz;
 }
 
 void MainWindow::connectionClosedByServer() {
@@ -159,8 +202,9 @@ void MainWindow::on_connectButton_clicked()
 
 void MainWindow::on_forward_button_pressed()
 {
-    if(manual_flag == 0)
+    if(manual_flag == 0) {
         return;
+    }
     press_flag = 1;
     qDebug("FUCK");
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2001000\"}}";

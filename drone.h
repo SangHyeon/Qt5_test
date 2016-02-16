@@ -1,10 +1,13 @@
 #ifndef DRONE_H
 #define DRONE_H
 
-class drone
+#include "object.h"
+
+class Drone : public Object
 {
 public:
-    drone();
+    Drone() = default;
+    virtual void draw() override;
 };
 
 #endif // DRONE_H

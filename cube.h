@@ -1,5 +1,5 @@
-#ifndef DRONE_H
-#define DRONE_H
+#ifndef CUBE_H
+#define CUBE_H
 
 #include "object.h"
 
