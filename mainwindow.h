@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void mouseIsPressed(QMouseEvent *event);
+    //virtual void mousePressEvent(QMouseEvent *event);
     void quad_data(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
 
 protected:

@@ -15,11 +15,18 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     glwidget.cpp \
-    server.cpp
+    server.cpp \
+    cube.cpp \
+    drone.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
-    server.h
+    server.h \
+    object.h \
+    material.h \
+    color4f.h \
+    cube.h \
+    drone.h
 
 FORMS    += mainwindow.ui
 

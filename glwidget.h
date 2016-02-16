@@ -9,12 +9,16 @@
 #include <GL/glut.h>
 #include <QDebug>
 
+#include <vector>
+
+class Object;
 
 class GLWidget : public QGLWidget
 {
     Q_OBJECT
 public:
     explicit GLWidget(QWidget *parent = 0);
+    virtual ~GLWidget();
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
@@ -43,6 +47,8 @@ private:
     GLfloat transrationZ;
     GLfloat scaling;
     QPoint lastPos;
+
+    std::vector<Object*> objects;
 
 };
 
