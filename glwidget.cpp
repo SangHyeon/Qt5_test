@@ -48,17 +48,17 @@ void GLWidget::initializeGL()
     redColor.specular = Color4F( 0.3, 0.0, 0.0, 1.0f );
     redColor.shiness = 43.4f;
 
-    /*Material greenColor;
-    greenColor.ambient = Color4F( 0.0, 0.7, 0.0, 1.0f );
-    greenColor.diffuse = Color4F( 0.0, 0.7, 0.0, 1.0f );
-    greenColor.specular = Color4F( 0.0, 0.7, 0.0, 1.0f );
-    greenColor.shiness = 63.4f;
+    Material greenColor;
+    greenColor.ambient = Color4F( 0.0, 0.3, 0.0, 1.0f );
+    greenColor.diffuse = Color4F( 0.0, 0.3, 0.0, 1.0f );
+    greenColor.specular = Color4F( 0.0, 0.3, 0.0, 1.0f );
+    greenColor.shiness = 43.4f;
 
     Material blueColor;
-    blueColor.ambient = Color4F( 0.0, 0.0, 0.7, 1.0f );
-    blueColor.diffuse = Color4F( 0.0, 0.0, 0.7, 1.0f );
-    blueColor.specular = Color4F( 0.0, 0.0, 0.7, 1.0f );
-    blueColor.shiness = 63.4f;*/
+    blueColor.ambient = Color4F( 0.0, 0.0, 0.3, 1.0f );
+    blueColor.diffuse = Color4F( 0.0, 0.0, 0.3, 1.0f );
+    blueColor.specular = Color4F( 0.0, 0.0, 0.3, 1.0f );
+    blueColor.shiness = 43.4f;
 
     Material goldColor;
     goldColor.ambient = Color4F( 0.24725f, 0.2245f, 0.0645f, 1.0f );
@@ -94,8 +94,18 @@ void GLWidget::initializeGL()
 
     Drone* d2 = new Drone;
     d2->setMaterial(redColor);
-    d2->setPosition(100,  100, 100);
+    d2->setPosition(200,  100, 100);
     d2->setRotation(0, 0, 0);
+
+    Drone* d3 = new Drone;
+    d3->setMaterial(greenColor);
+    d3->setPosition(300,  100, 100);
+    d3->setRotation(0, 0, 0);
+
+    Drone* d4 = new Drone;
+    d4->setMaterial(blueColor);
+    d4->setPosition(400,  100, 100);
+    d4->setRotation(0, 0, 0);
 
     Cube* c1 = new Cube;
     c1->setMaterial(bronzeColor);
@@ -114,7 +124,9 @@ void GLWidget::initializeGL()
 
     objects.push_back(xxx);
     objects.push_back(d1);
-    objects.push_back(d2);
+    objects.push_back(d2);   
+    objects.push_back(d3);
+    objects.push_back(d4);
     objects.push_back(c1);
     objects.push_back(c2);
     objects.push_back(c3);
@@ -217,15 +229,14 @@ void GLWidget::paintGL() {
 
     for(int i = 0 ; i < (int)objects.size() ; ++ i)
     {
-        if(i == 1) {
+        if(i == 1)
             objects[i]->setPosition(one[0], one[1], one[2]);
-
-            //        objects[i]->setRotation(objects[i]->getRotationX() + 1.1f,
-            //                                objects[i]->getRotationY() + 1.1f,
-            //                                objects[i]->getRotationZ() + 1.1f);
-        }
         else if(i == 2)
             objects[i]->setPosition(two[0], two[1], two[2]);
+        else if(i == 3)
+            objects[i]->setPosition(three[0], three[1], three[2]);
+        else if(i == 4)
+            objects[i]->setPosition(four[0], four[1], four[2]);
 
         objects[i]->draw();
     }
