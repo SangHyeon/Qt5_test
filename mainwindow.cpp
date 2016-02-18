@@ -73,7 +73,7 @@ void MainWindow::connectToServer() {
 
     qDebug() << "In connect To Server "<<connect_flag;
     if(connect_flag == 0) {
-        tcpSocket.connectToHost("112.108.39.204", 9090);
+        tcpSocket.connectToHost("112.108.39.236", 9090);
     }
     else if(connect_flag == 1 && disconnect_flag == 1) {
         connect_flag = 0;
@@ -95,10 +95,12 @@ void MainWindow::onConnectServer(){
     QByteArray msg = "raw\r\n\r\n";
     //QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
     QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/CURRENT_POS\"}";
+    QByteArray JSON2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/CURRENT_POS\"}";
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
     tcpSocket.write(msg, msg.size());
     tcpSocket.write(JSON, JSON.size());
+    tcpSocket.write(JSON2, JSON2.size());
     tcpSocket.write(ADVER, ADVER.size());
     tcpSocket.write(TOPIC, TOPIC.size());
 
@@ -109,7 +111,7 @@ void MainWindow::onConnectServer(){
 
 void MainWindow::sendRequest() {
     //need modifying
-   /* QByteArray block;
+    /* QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out<<quint16(0);
 
@@ -143,9 +145,14 @@ void MainWindow::getPosition(QString s) {
     QString tmp = s;
     QString tmp2 = tmp;
     QString tmp3 = tmp;
+    QStringList ttt, num;
     int yyy, xxx, zzz;
 
-    QStringList ttt = tmp.split("y");
+    num = tmp.split("/");
+    //    if(num[1] == "FIRST")
+    //        qDebug() << num[1];
+
+    ttt = tmp.split("y");
     tmp = ttt[1];
     ttt = tmp.split(" ");
     tmp = ttt[1];
@@ -166,9 +173,16 @@ void MainWindow::getPosition(QString s) {
     ttt = tmp.split("}");
     zzz = ttt[0].toDouble();
 
-    one[0] = xxx*(-1);
-    one[2] = yyy;
-    one[1] = zzz;
+    if(num[1] == "FIRST") {
+        one[0] = xxx*(-1)*3;
+        one[2] = yyy*3;
+        one[1] = zzz;
+    }
+    else if(num[1] == "SECOND") {
+        two[0] = xxx*(-1)*3;
+        two[2] = yyy*3;
+        two[1] = zzz;
+    }
 
     ui->widget->test_button(one, two, three, four);
 

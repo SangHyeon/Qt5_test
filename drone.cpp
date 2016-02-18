@@ -17,16 +17,17 @@ void Drone::draw()
     // (S = scale, R = rotation, T = translate)
     // SRT = 공전
     // STR = 자전
-    /*glPushMatrix();
+
+    glPushMatrix();
     glTranslatef(_posx, _posy, _posz);
     glRotatef(_rotx, 1.0f, 0.0f, 0.0f);
     glRotatef(_roty, 0.0f, 1.0f, 0.0f);
     glRotatef(_rotz, 0.0f, 0.0f, 1.0f);
 
-    glScalef(20, 3, 20);
-    glutSolidCube(5);
+    glScalef(1, 1, 1);
+    glutWireSphere(300, 7, 7);
 
-    glPopMatrix();*/
+    glPopMatrix();
 
     glPushMatrix();
     glTranslatef(_posx+200, _posy+10, _posz);

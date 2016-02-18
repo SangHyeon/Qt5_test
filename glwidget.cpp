@@ -35,6 +35,7 @@ GLWidget::~GLWidget()
 void GLWidget::initializeGL()
 {
     //ground = 2700
+
     Material whiteColor;
     whiteColor.ambient = Color4F( 0.3, 0.3, 0.3, 0.3f );
     whiteColor.diffuse = Color4F( 0.3, 0.3, 0.3, 0.3f );
@@ -42,12 +43,12 @@ void GLWidget::initializeGL()
     whiteColor.shiness = 3.4f;
 
     Material redColor;
-    redColor.ambient = Color4F( 0.7, 0.0, 0.0, 1.0f );
-    redColor.diffuse = Color4F( 0.7, 0.0, 0.0, 1.0f );
-    redColor.specular = Color4F( 0.7, 0.0, 0.0, 1.0f );
-    redColor.shiness = 63.4f;
+    redColor.ambient = Color4F( 0.3, 0.0, 0.0, 1.0f );
+    redColor.diffuse = Color4F( 0.3, 0.0, 0.0, 1.0f );
+    redColor.specular = Color4F( 0.3, 0.0, 0.0, 1.0f );
+    redColor.shiness = 43.4f;
 
-    Material greenColor;
+    /*Material greenColor;
     greenColor.ambient = Color4F( 0.0, 0.7, 0.0, 1.0f );
     greenColor.diffuse = Color4F( 0.0, 0.7, 0.0, 1.0f );
     greenColor.specular = Color4F( 0.0, 0.7, 0.0, 1.0f );
@@ -57,13 +58,13 @@ void GLWidget::initializeGL()
     blueColor.ambient = Color4F( 0.0, 0.0, 0.7, 1.0f );
     blueColor.diffuse = Color4F( 0.0, 0.0, 0.7, 1.0f );
     blueColor.specular = Color4F( 0.0, 0.0, 0.7, 1.0f );
-    blueColor.shiness = 63.4f;
+    blueColor.shiness = 63.4f;*/
 
     Material goldColor;
     goldColor.ambient = Color4F( 0.24725f, 0.2245f, 0.0645f, 1.0f );
     goldColor.diffuse = Color4F( 0.34615f, 0.3143f, 0.0903f, 1.0f );
     goldColor.specular = Color4F( 0.797357f, 0.723991f, 0.366065f, 1.0f );
-    goldColor.shiness = 83.4f;
+    goldColor.shiness = 63.4f;
 
     Material bronzeColor;
     bronzeColor.ambient = Color4F( 0.2125f, 0.1275f, 0.054f, 1.0f );
@@ -72,24 +73,29 @@ void GLWidget::initializeGL()
     bronzeColor.shiness = 25.6f;
 
     Axis* xxx = new Axis;
-    xxx->setMaterial(redColor);
+    xxx->setMaterial(bronzeColor);
     xxx->setPosition(0, 0, 0);
-    xxx->setRotation(45, 0, 0);
+    xxx->setRotation(0, 0, 0);
 
-    Axis* yyy = new Axis;
-    yyy->setMaterial(greenColor);
-    yyy->setPosition(0, 0, 4500);
-    yyy->setRotation(0, 90, 0);
+    //    Axis* yyy = new Axis;
+    //    yyy->setMaterial(greenColor);
+    //    yyy->setPosition(0, 0, 4500);
+    //    yyy->setRotation(0, 90, 0);
 
-    Axis* zzz = new Axis;
-    zzz->setMaterial(blueColor);
-    zzz->setPosition(0, -4500, 0);
-    zzz->setRotation(0, 0, 90);
+    //    Axis* zzz = new Axis;
+    //    zzz->setMaterial(blueColor);
+    //    zzz->setPosition(0, -4500, 0);
+    //    zzz->setRotation(0, 0, 90);
 
     Drone* d1 = new Drone;
     d1->setMaterial(goldColor);
     d1->setPosition(100,  100, 100);
     d1->setRotation(0, 0, 0);
+
+    Drone* d2 = new Drone;
+    d2->setMaterial(redColor);
+    d2->setPosition(100,  100, 100);
+    d2->setRotation(0, 0, 0);
 
     Cube* c1 = new Cube;
     c1->setMaterial(bronzeColor);
@@ -107,10 +113,8 @@ void GLWidget::initializeGL()
     c3->setRotation(0,0,0);
 
     objects.push_back(xxx);
-    objects.push_back(yyy);
-    objects.push_back(zzz);
-
     objects.push_back(d1);
+    objects.push_back(d2);
     objects.push_back(c1);
     objects.push_back(c2);
     objects.push_back(c3);
@@ -213,13 +217,16 @@ void GLWidget::paintGL() {
 
     for(int i = 0 ; i < (int)objects.size() ; ++ i)
     {
-        if(i == 3) {
-        objects[i]->setPosition(one[0], one[1], one[2]);
+        if(i == 1) {
+            objects[i]->setPosition(one[0], one[1], one[2]);
 
-//        objects[i]->setRotation(objects[i]->getRotationX() + 1.1f,
-//                                objects[i]->getRotationY() + 1.1f,
-//                                objects[i]->getRotationZ() + 1.1f);
+            //        objects[i]->setRotation(objects[i]->getRotationX() + 1.1f,
+            //                                objects[i]->getRotationY() + 1.1f,
+            //                                objects[i]->getRotationZ() + 1.1f);
         }
+        else if(i == 2)
+            objects[i]->setPosition(two[0], two[1], two[2]);
+
         objects[i]->draw();
     }
 

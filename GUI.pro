@@ -17,7 +17,9 @@ SOURCES += main.cpp\
     glwidget.cpp \
     server.cpp \
     cube.cpp \
-    drone.cpp
+    drone.cpp \
+    axis.cpp \
+    ground.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -26,7 +28,9 @@ HEADERS  += mainwindow.h \
     material.h \
     color4f.h \
     cube.h \
-    drone.h
+    drone.h \
+    axis.h \
+    ground.h
 
 FORMS    += mainwindow.ui
 
