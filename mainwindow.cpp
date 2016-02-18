@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
     //connect(ui->forward_button, SIGNAL(pressed()), this, SLOT(QAbstractButton::autoRepeat()));
 
+    ui->horizontalSlider->setRange(1, 50);
+    ui->horizontalSlider->setValue(10);
+
     one[0]=130;
     one[1]=140;
     one[2]=190;
@@ -99,14 +102,18 @@ void MainWindow::onConnectServer(){
     QByteArray JSON3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/CURRENT_POS\"}";
     QByteArray JSON4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/CURRENT_POS\"}";
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
+    QByteArray ADVER2 = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_ahn\", \"type\":\"std_msgs/String\"}";
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    TOPIC2 = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_ahn\", \"msg\" : {\"data\":\"10\"}}";
     tcpSocket.write(msg, msg.size());
     tcpSocket.write(JSON, JSON.size());
     tcpSocket.write(JSON2, JSON2.size());
     tcpSocket.write(JSON3, JSON2.size());
     tcpSocket.write(JSON4, JSON2.size());
     tcpSocket.write(ADVER, ADVER.size());
+    tcpSocket.write(ADVER2, ADVER2.size());
     tcpSocket.write(TOPIC, TOPIC.size());
+    tcpSocket.write(TOPIC2, TOPIC2.size());
 
     qDebug("%d", msg.size());
     qDebug("%d", JSON.size());
@@ -251,8 +258,9 @@ void MainWindow::on_forward_button_pressed()
     }
     press_flag = 1;
     qDebug("FUCK");
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2001000\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"21\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
+    tcpSocket.write(TOPIC2, TOPIC2.size());
 }
 
 void MainWindow::on_forward_button_released()
@@ -261,8 +269,8 @@ void MainWindow::on_forward_button_released()
     if(manual_flag == 0)
         return;
     qDebug("That");
-    //TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
-    //tcpSocket.write(TOPIC, TOPIC.size());
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"20\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
 /*
@@ -286,8 +294,9 @@ void MainWindow::on_right_button_pressed()
     if(manual_flag == 0)
         return;
     press_flag = 1;
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2000010\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"24\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
+    tcpSocket.write(TOPIC2, TOPIC2.size());
 }
 
 void MainWindow::on_right_button_released()
@@ -295,9 +304,9 @@ void MainWindow::on_right_button_released()
 
     if(manual_flag == 0)
         return;
-    //TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"20\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
-    //tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_left_button_pressed()
@@ -306,8 +315,9 @@ void MainWindow::on_left_button_pressed()
     if(manual_flag == 0)
         return;
     press_flag = 1;
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2000001\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"23\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
+    tcpSocket.write(TOPIC2, TOPIC2.size());
 }
 
 void MainWindow::on_left_button_released()
@@ -315,9 +325,9 @@ void MainWindow::on_left_button_released()
 
     if(manual_flag == 0)
         return;
-    //TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"20\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
-    //tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_back_button_pressed()
@@ -326,8 +336,9 @@ void MainWindow::on_back_button_pressed()
     if(manual_flag == 0)
         return;
     press_flag = 1;
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2000100\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"22\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
+    tcpSocket.write(TOPIC2, TOPIC2.size());
 }
 
 void MainWindow::on_back_button_released()
@@ -335,9 +346,9 @@ void MainWindow::on_back_button_released()
 
     if(manual_flag == 0)
         return;
-    //TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"20\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
-    //tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_up_button_pressed()
@@ -346,8 +357,9 @@ void MainWindow::on_up_button_pressed()
     if(manual_flag == 0)
         return;
     press_flag = 1;
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2100000\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"25\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
+    tcpSocket.write(TOPIC2, TOPIC2.size());
 }
 
 void MainWindow::on_up_button_released()
@@ -355,9 +367,9 @@ void MainWindow::on_up_button_released()
 
     if(manual_flag == 0)
         return;
-    //TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"20\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
-    //tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_down_button_pressed()
@@ -366,8 +378,9 @@ void MainWindow::on_down_button_pressed()
     if(manual_flag == 0)
         return;
     press_flag = 1;
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2010000\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"26\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
+    tcpSocket.write(TOPIC2, TOPIC2.size());
 }
 
 void MainWindow::on_down_button_released()
@@ -375,9 +388,9 @@ void MainWindow::on_down_button_released()
 
     if(manual_flag == 0)
         return;
-    //TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"20\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
-    //tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_take_off_button_clicked()
@@ -421,4 +434,11 @@ void MainWindow::on_form3_button_clicked()
 void MainWindow::on_manual_button_clicked()
 {
     manual_flag = 1;
+}
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    ui->drone_speed->setText(QString("SPEED :    %1").arg(value));
+    QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_ahn\", \"msg\" : {\"data\":\"%1\"}}").arg(value);
+    TOPIC2 = tmp.toUtf8();
 }

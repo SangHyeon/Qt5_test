@@ -77,6 +77,8 @@ private slots:
 
     void on_manual_button_clicked();
 
+    void on_horizontalSlider_valueChanged(int value);
+
 private:
     Ui::MainWindow *ui;
 
@@ -88,6 +90,7 @@ private:
     int manual_flag;
 
     QByteArray TOPIC;
+    QByteArray TOPIC2;
 
     GLfloat one[3];
     GLfloat two[3];

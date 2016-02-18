@@ -84,7 +84,7 @@
          <property name="geometry">
           <rect>
            <x>70</x>
-           <y>270</y>
+           <y>220</y>
            <width>61</width>
            <height>41</height>
           </rect>
@@ -97,7 +97,7 @@
          <property name="geometry">
           <rect>
            <x>130</x>
-           <y>270</y>
+           <y>220</y>
            <width>61</width>
            <height>41</height>
           </rect>
@@ -110,7 +110,7 @@
          <property name="geometry">
           <rect>
            <x>110</x>
-           <y>220</y>
+           <y>170</y>
            <width>41</width>
            <height>41</height>
           </rect>
@@ -130,7 +130,7 @@
          <property name="geometry">
           <rect>
            <x>70</x>
-           <y>180</y>
+           <y>130</y>
            <width>41</width>
            <height>41</height>
           </rect>
@@ -150,7 +150,7 @@
          <property name="geometry">
           <rect>
            <x>110</x>
-           <y>140</y>
+           <y>90</y>
            <width>41</width>
            <height>41</height>
           </rect>
@@ -170,7 +170,7 @@
          <property name="geometry">
           <rect>
            <x>150</x>
-           <y>180</y>
+           <y>130</y>
            <width>41</width>
            <height>41</height>
           </rect>
@@ -236,6 +236,32 @@
          </property>
          <property name="text">
           <string>Drone 4 :</string>
+         </property>
+        </widget>
+        <widget class="QSlider" name="horizontalSlider">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>300</y>
+           <width>160</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QLabel" name="drone_speed">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>270</y>
+           <width>101</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SPEED :    0</string>
          </property>
         </widget>
        </widget>
