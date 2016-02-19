@@ -79,15 +79,19 @@ private slots:
 
     void on_horizontalSlider_valueChanged(int value);
 
+    void on_form4_button_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     QTcpSocket tcpSocket; //socket
     int nextBlockSize;
+
     int connect_flag;
     int disconnect_flag;
     int press_flag;
     int manual_flag;
+    int form_flag;
 
     QByteArray TOPIC;
     QByteArray TOPIC2;

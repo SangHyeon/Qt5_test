@@ -47,7 +47,7 @@
       <item row="4" column="0">
        <widget class="QPushButton" name="form3_button">
         <property name="text">
-         <string>Form3</string>
+         <string>Scenario 1</string>
         </property>
        </widget>
       </item>
@@ -61,7 +61,7 @@
       <item row="4" column="1">
        <widget class="QPushButton" name="form4_button">
         <property name="text">
-         <string>Form4</string>
+         <string>Scenario 2</string>
         </property>
        </widget>
       </item>
