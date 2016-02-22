@@ -6,8 +6,14 @@
 class Drone : public Object
 {
 public:
-    Drone() = default;
+    Drone() {
+        p_roty = _roty;
+    }
+
     virtual void draw() override;
+
+private:
+    float p_roty;
 };
 
 #endif // DRONE_H
