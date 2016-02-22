@@ -81,6 +81,8 @@ private slots:
 
     void on_form4_button_clicked();
 
+    void on_auto_button_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -91,7 +93,10 @@ private:
     int disconnect_flag;
     int press_flag;
     int manual_flag;
+    int auto_flag;
     int form_flag;
+    int landing_flag;
+    int takeoff_flag;
 
     QByteArray TOPIC;
     QByteArray TOPIC2;

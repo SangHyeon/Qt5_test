@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect_flag = 0;
     disconnect_flag = 1;
     manual_flag = 0;
+    auto_flag = 0;
     form_flag = 0;
     ui->setupUi(this);
 
@@ -98,10 +99,10 @@ void MainWindow::onConnectServer(){
 
     QByteArray msg = "raw\r\n\r\n";
     //QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
-    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/CURRENT_POS\"}";
-    QByteArray JSON2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/CURRENT_POS\"}";
-    QByteArray JSON3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/CURRENT_POS\"}";
-    QByteArray JSON4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/CURRENT_POS\"}";
+    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/NASANG\"}";
+    QByteArray JSON2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/NASANG\"}";
+    QByteArray JSON3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/NASANG\"}";
+    QByteArray JSON4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/NASANG\"}";
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
     QByteArray ADVER2 = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_ahn\", \"type\":\"std_msgs/String\"}";
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
@@ -109,8 +110,8 @@ void MainWindow::onConnectServer(){
     tcpSocket.write(msg, msg.size());
     tcpSocket.write(JSON, JSON.size());
     tcpSocket.write(JSON2, JSON2.size());
-    tcpSocket.write(JSON3, JSON2.size());
-    tcpSocket.write(JSON4, JSON2.size());
+    tcpSocket.write(JSON3, JSON3.size());
+    tcpSocket.write(JSON4, JSON4.size());
     tcpSocket.write(ADVER, ADVER.size());
     tcpSocket.write(ADVER2, ADVER2.size());
     tcpSocket.write(TOPIC, TOPIC.size());
@@ -120,10 +121,10 @@ void MainWindow::onConnectServer(){
     qDebug("%d", JSON.size());
     qDebug("send message!");
 
-    ui->drone_first->setText(QString("Drone 1 :     %1      %2      %3").arg(one[0]).arg(one[1]).arg(one[2]));
-    ui->drone_second->setText(QString("Drone 2 :     %1      %2      %3").arg(two[0]).arg(two[1]).arg(two[2]));
-    ui->drone_third->setText(QString("Drone 3 :     %1      %2      %3").arg(three[0]).arg(three[1]).arg(three[2]));
-    ui->drone_fourth->setText(QString("Drone 4 :     %1      %2      %3").arg(four[0]).arg(four[1]).arg(four[2]));
+    ui->drone_first->setText(QString("Drone 1 :    %1     %2     %3").arg(one[0]).arg(one[1]).arg(one[2]));
+    ui->drone_second->setText(QString("Drone 2 :    %1     %2     %3").arg(two[0]).arg(two[1]).arg(two[2]));
+    ui->drone_third->setText(QString("Drone 3 :    %1     %2     %3").arg(three[0]).arg(three[1]).arg(three[2]));
+    ui->drone_fourth->setText(QString("Drone 4 :    %1     %2     %3").arg(four[0]).arg(four[1]).arg(four[2]));
 }
 
 void MainWindow::sendRequest() {
@@ -195,28 +196,28 @@ void MainWindow::getPosition(QString s) {
         one[2] = yyy*3;
         one[1] = zzz;
 
-        ui->drone_first->setText(QString("Drone 1 :     %1      %2      %3").arg(one[0]).arg(one[1]).arg(one[2]));
+        ui->drone_first->setText(QString("Drone 1 :   %1    %2    %3").arg(one[0]).arg(one[1]).arg(one[2]));
     }
     else if(num[1] == "SECOND") {
         two[0] = xxx*(-1)*3;
         two[2] = yyy*3;
         two[1] = zzz;
 
-        ui->drone_second->setText(QString("Drone 2 :     %1      %2      %3").arg(two[0]).arg(two[1]).arg(two[2]));
+        ui->drone_second->setText(QString("Drone 2 :   %1    %2    %3").arg(two[0]).arg(two[1]).arg(two[2]));
     }
     else if(num[1] == "THIRD") {
         three[0] = xxx*(-1)*3;
         three[2] = yyy*3;
         three[1] = zzz;
 
-        ui->drone_third->setText(QString("Drone 3 :     %1      %2      %3").arg(three[0]).arg(three[1]).arg(three[2]));
+        ui->drone_third->setText(QString("Drone 3 :   %1    %2    %3").arg(three[0]).arg(three[1]).arg(three[2]));
     }
     else if(num[1] == "FOURTH") {
         four[0] = xxx*(-1)*3;
         four[2] = yyy*3;
         four[1] = zzz;
 
-        ui->drone_fourth->setText(QString("Drone 4 :     %1      %2      %3").arg(four[0]).arg(four[1]).arg(four[2]));
+        ui->drone_fourth->setText(QString("Drone 4 :   %1    %2    %3").arg(four[0]).arg(four[1]).arg(four[2]));
     }
     else {
         qDebug() <<"==============================ERROR=============================";
@@ -234,9 +235,9 @@ void MainWindow::connectionClosedByServer() {
 }
 
 void MainWindow::error() {
-    qDebug(tcpSocket.errorString().toUtf8());
+    //qDebug(tcpSocket.errorString().toUtf8());
     connect_flag = 0;
-    qDebug("I'm Here22");
+    qDebug("Server Error");
     ui->connectButton->setText("connect");
 }
 
@@ -274,7 +275,7 @@ void MainWindow::on_forward_button_released()
     qDebug("That");
     QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2%1%2\"}}").arg(form_flag).arg(0);
     TOPIC = tmp.toUtf8();
-    tcpSocket.write(TOPIC, TOPIC.size());
+    //tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
 
@@ -296,7 +297,7 @@ void MainWindow::on_right_button_released()
         return;
     QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2%1%2\"}}").arg(form_flag).arg(0);
     TOPIC = tmp.toUtf8();
-    tcpSocket.write(TOPIC, TOPIC.size());
+    //tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
 
@@ -318,7 +319,7 @@ void MainWindow::on_left_button_released()
         return;
     QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2%1%2\"}}").arg(form_flag).arg(0);
     TOPIC = tmp.toUtf8();
-    tcpSocket.write(TOPIC, TOPIC.size());
+    //tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
 
@@ -341,7 +342,7 @@ void MainWindow::on_back_button_released()
         return;
     QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2%1%2\"}}").arg(form_flag).arg(0);
     TOPIC = tmp.toUtf8();
-    tcpSocket.write(TOPIC, TOPIC.size());
+    //tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
 
@@ -363,7 +364,7 @@ void MainWindow::on_up_button_released()
         return;
     QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2%1%2\"}}").arg(form_flag).arg(0);
     TOPIC = tmp.toUtf8();
-    tcpSocket.write(TOPIC, TOPIC.size());
+    //tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
 
@@ -384,12 +385,15 @@ void MainWindow::on_down_button_released()
         return;
     QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"2%1%2\"}}").arg(form_flag).arg(0);
     TOPIC = tmp.toUtf8();
-    tcpSocket.write(TOPIC, TOPIC.size());
+    //tcpSocket.write(TOPIC, TOPIC.size());
     press_flag = 0;
 }
 
 void MainWindow::on_take_off_button_clicked()
 {
+    takeoff_flag = 1;
+    landing_flag = 0;
+    auto_flag = 0;
     form_flag = 0;
     manual_flag = 0;
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"0\"}}";
@@ -398,20 +402,26 @@ void MainWindow::on_take_off_button_clicked()
 
 void MainWindow::on_landing_button_clicked()
 {
+    landing_flag = 1;
     form_flag = 0;
     manual_flag = 0;
+    auto_flag = 0;
+    takeoff_flag = 0;
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"3\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_stop_button_clicked()
 {
-    form_flag = 0;
     manual_flag = 0;
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    auto_flag = 0;
+    landing_flag = 0;
+    takeoff_flag = 0;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"5\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
 }
 
+//mode 1 button
 void MainWindow::on_form1_button_clicked()
 {
     if(manual_flag == 0)
@@ -421,6 +431,7 @@ void MainWindow::on_form1_button_clicked()
     tcpSocket.write(TOPIC, TOPIC.size());
 }
 
+//mode 2 button
 void MainWindow::on_form2_button_clicked()
 {
     if(manual_flag == 0)
@@ -432,12 +443,16 @@ void MainWindow::on_form2_button_clicked()
 
 void MainWindow::on_form3_button_clicked() //scenario 1
 {
+    if(auto_flag == 0)
+        return;
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"11\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
 }
 
 void MainWindow::on_form4_button_clicked() //scenario 2
 {
+    if(auto_flag == 0)
+        return;
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"12\"}}";
     tcpSocket.write(TOPIC, TOPIC.size());
 }
@@ -445,6 +460,10 @@ void MainWindow::on_form4_button_clicked() //scenario 2
 void MainWindow::on_manual_button_clicked()
 {
     manual_flag = 1;
+    form_flag = 0;
+    auto_flag = 0;
+    landing_flag = 0;
+    takeoff_flag = 0;
 }
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
@@ -452,4 +471,13 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     ui->drone_speed->setText(QString("SPEED :    %1").arg(value));
     QString tmp = QString("{ \"op\" : \"publish\" , \"topic\" : \"/hello_ahn\", \"msg\" : {\"data\":\"%1\"}}").arg(value);
     TOPIC2 = tmp.toUtf8();
+}
+
+void MainWindow::on_auto_button_clicked()
+{
+    manual_flag = 0;
+    auto_flag = 1;
+    form_flag = 0;
+    landing_flag = 0;
+    takeoff_flag = 0;
 }
