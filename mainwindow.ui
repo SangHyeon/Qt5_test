@@ -33,7 +33,7 @@
       <item row="2" column="0">
        <widget class="QPushButton" name="auto_button">
         <property name="text">
-         <string>AUTO</string>
+         <string>&amp;AUTO</string>
         </property>
        </widget>
       </item>
@@ -269,35 +269,35 @@
       <item row="2" column="1">
        <widget class="QPushButton" name="manual_button">
         <property name="text">
-         <string>MANUAL</string>
+         <string>&amp;MANUAL</string>
         </property>
        </widget>
       </item>
       <item row="2" column="2">
        <widget class="QPushButton" name="stop_button">
         <property name="text">
-         <string>STOP</string>
+         <string>&amp;STOP</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="take_off_button">
         <property name="text">
-         <string>TAKE OFF</string>
+         <string>&amp;TAKE OFF</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="landing_button">
         <property name="text">
-         <string>LANDING</string>
+         <string>&amp;LANDING</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="connectButton">
         <property name="text">
-         <string>connect</string>
+         <string>&amp;Connect</string>
         </property>
        </widget>
       </item>

@@ -77,16 +77,6 @@ void GLWidget::initializeGL()
     xxx->setPosition(0, 0, 0);
     xxx->setRotation(0, 0, 0);
 
-    //    Axis* yyy = new Axis;
-    //    yyy->setMaterial(greenColor);
-    //    yyy->setPosition(0, 0, 4500);
-    //    yyy->setRotation(0, 90, 0);
-
-    //    Axis* zzz = new Axis;
-    //    zzz->setMaterial(blueColor);
-    //    zzz->setPosition(0, -4500, 0);
-    //    zzz->setRotation(0, 0, 90);
-
     Drone* d1 = new Drone;
     d1->setMaterial(goldColor);
     d1->setPosition(100,  100, 100);

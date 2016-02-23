@@ -16,11 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->nextBlockSize = 0;
     connect(ui->connectButton, SIGNAL(clicked()), this, SLOT(connectToServer()));
     connect(&tcpSocket, SIGNAL(connected()), this, SLOT(onConnectServer()));
-    //connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(sendRequest()));
     connect(&tcpSocket, SIGNAL(readyRead()), this, SLOT(readMessage()));
     connect(&tcpSocket, SIGNAL(disconnected()), this, SLOT(connectionClosedByServer()));
     connect(&tcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
-    //connect(ui->forward_button, SIGNAL(pressed()), this, SLOT(QAbstractButton::autoRepeat()));
 
     ui->horizontalSlider->setRange(1, 50);
     ui->horizontalSlider->setValue(10);
@@ -47,13 +45,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-/*
-void MainWindow::on_pushButton_2_clicked()
-{
-    qDebug("Clicked Button!!");
-    ui->widget->test_button(one, two, three, four);
-}
-*/
+
 void MainWindow::quad_data\
 (GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four) {
     one[0]=t_one[0];
@@ -156,10 +148,6 @@ void MainWindow::readMessage() {
 }
 
 void MainWindow::getPosition(QString s) {
-    //qDebug(s.toUtf8());
-    //test code
-    //QString tmp = "{\"topic\": \"/FIRST/CURRENT_POS\", \"msg\": {\"y\": 3000.0876808544454, \"x\": 1407.7433628318586, \"z\": -1780.8053665716345}, \"op\": \"publish\"}";
-    //qDebug() <<"asdfad"<<s<<"======";
     QString tmp = s;
     QString tmp2 = tmp;
     QString tmp3 = tmp;
@@ -167,8 +155,6 @@ void MainWindow::getPosition(QString s) {
     int yyy, xxx, zzz;
 
     num = tmp.split("/");
-    //    if(num[1] == "FIRST")
-    //        qDebug() << num[1];
 
     ttt = tmp.split("y");
     tmp = ttt[1];
