@@ -217,7 +217,7 @@ void GLWidget::initializeGL()
     glMatrixMode(GL_PROJECTION);
     glViewport(0,0, w, h);
     gluPerspective(60.0f, (float)w / (float)h, 0.5f, 50000.0f);
-    gluLookAt(45.0f, 45.0f, 1500, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+    gluLookAt(0.0f, 0.0f, 4500, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
     glMatrixMode(GL_MODELVIEW);
 
 }
