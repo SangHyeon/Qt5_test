@@ -153,8 +153,8 @@ void MainWindow::readMessage() {
     //{"topic": "/FIRST/CURRENT_POS", "msg": {"y": 3000.0876808544454, "x": 1407.7433628318586, "z": -1780.8053665716345}, "op": "publish"}
     qDebug(line.toUtf8());
     //if(press_flag == 1) {
-        //tcpSocket.write(TOPIC, TOPIC.size());
-        //qDebug() << "===========fuck==========";
+    //tcpSocket.write(TOPIC, TOPIC.size());
+    //qDebug() << "===========fuck==========";
     //}
     ui->widget->test_button(one, two, three, four);
 }
@@ -163,82 +163,117 @@ void MainWindow::getPosition(QString s) {
     QString tmp = s;
     QString tmp2 = tmp;
     QString tmp3 = tmp;
-    QStringList ttt, num;
-    int yyy, xxx, zzz;
+    QStringList ttt, num, mod;
+    int yyy, xxx, zzz, command;
 
     num = tmp.split("/");
+    mod = num[2].split("\"");
+    qDebug() << mod[0];
 
-    ttt = tmp.split("y");
-    tmp = ttt[1];
-    ttt = tmp.split(" ");
-    tmp = ttt[1];
-    ttt = tmp.split(",");
-    yyy = ttt[0].toDouble();
 
-    ttt = tmp2.split("x");
-    tmp = ttt[1];
-    ttt = tmp.split(" ");
-    tmp = ttt[1];
-    ttt = tmp.split(",");
-    xxx = ttt[0].toDouble();
+    if(mod[0] == "NASANG") {
+        ttt = tmp.split("y");
+        tmp = ttt[1];
+        ttt = tmp.split(" ");
+        tmp = ttt[1];
+        ttt = tmp.split(",");
+        yyy = ttt[0].toDouble();
 
-    ttt = tmp3.split("z");
-    tmp = ttt[1];
-    ttt = tmp.split(" ");
-    tmp = ttt[1];
-    ttt = tmp.split("}");
-    zzz = ttt[0].toDouble();
+        ttt = tmp2.split("x");
+        tmp = ttt[1];
+        ttt = tmp.split(" ");
+        tmp = ttt[1];
+        ttt = tmp.split(",");
+        xxx = ttt[0].toDouble();
 
-    if(num[1] == "FIRST") {
-        num = num[2].split("\"");
-        qDebug() << num[0];
+        ttt = tmp3.split("z");
+        tmp = ttt[1];
+        ttt = tmp.split(" ");
+        tmp = ttt[1];
+        ttt = tmp.split("}");
+        zzz = ttt[0].toDouble();
 
-        one[0] = xxx*(-1);
-        one[2] = yyy;
-        one[1] = zzz;
+        if(num[1] == "FIRST") {
+            one[0] = xxx*(-1);
+            one[2] = yyy;
+            one[1] = zzz;
 
-        ui->drone_first->setText(QString("Drone 1 :   %1    %2    %3").arg(one[0]).arg(one[2]).arg(one[1]));
+            ui->drone_first->setText(QString("Drone 1 :   %1    %2    %3").arg(one[0]).arg(one[2]).arg(one[1]));
 
-        one[0] = xxx*(-1)*3;
-        one[2] = yyy*3;
-        one[1] = zzz;
-    }
-    else if(num[1] == "SECOND") {
-        two[0] = xxx*(-1);
-        two[2] = yyy;
-        two[1] = zzz;
+            one[0] = xxx*(-1)*3;
+            one[2] = yyy*3;
+            one[1] = zzz;
+        }
+        else if(num[1] == "SECOND") {
+            two[0] = xxx*(-1);
+            two[2] = yyy;
+            two[1] = zzz;
 
-        ui->drone_second->setText(QString("Drone 2 :   %1    %2    %3").arg(two[0]).arg(two[2]).arg(two[1]));
+            ui->drone_second->setText(QString("Drone 2 :   %1    %2    %3").arg(two[0]).arg(two[2]).arg(two[1]));
 
-        two[0] = xxx*(-1)*3;
-        two[2] = yyy*3;
-        two[1] = zzz;
-    }
-    else if(num[1] == "THIRD") {
-        three[0] = xxx*(-1);
-        three[2] = yyy;
-        three[1] = zzz;
+            two[0] = xxx*(-1)*3;
+            two[2] = yyy*3;
+            two[1] = zzz;
+        }
+        else if(num[1] == "THIRD") {
+            three[0] = xxx*(-1);
+            three[2] = yyy;
+            three[1] = zzz;
 
-        ui->drone_third->setText(QString("Drone 3 :   %1    %2    %3").arg(three[0]).arg(three[2]).arg(three[1]));
+            ui->drone_third->setText(QString("Drone 3 :   %1    %2    %3").arg(three[0]).arg(three[2]).arg(three[1]));
 
-        three[0] = xxx*(-1)*3;
-        three[2] = yyy*3;
-        three[1] = zzz;
-    }
-    else if(num[1] == "FOURTH") {
-        four[0] = xxx*(-1);
-        four[2] = yyy;
-        four[1] = zzz;
+            three[0] = xxx*(-1)*3;
+            three[2] = yyy*3;
+            three[1] = zzz;
+        }
+        else if(num[1] == "FOURTH") {
+            four[0] = xxx*(-1);
+            four[2] = yyy;
+            four[1] = zzz;
 
-        ui->drone_fourth->setText(QString("Drone 4 :   %1    %2    %3").arg(four[0]).arg(four[2]).arg(four[1]));
+            ui->drone_fourth->setText(QString("Drone 4 :   %1    %2    %3").arg(four[0]).arg(four[2]).arg(four[1]));
 
-        four[0] = xxx*(-1)*3;
-        four[2] = yyy*3;
-        four[1] = zzz;
+            four[0] = xxx*(-1)*3;
+            four[2] = yyy*3;
+            four[1] = zzz;
 
-    }
-    else {
-        qDebug() <<"==============================ERROR=============================";
+        }
+        else {
+            qDebug() <<"==============================ERROR=============================";
+        }
+    } else if(mod[0] == "TARGET_POS") {
+        ttt = tmp.split("y");
+        tmp = ttt[1];
+        ttt = tmp.split(" ");
+        tmp = ttt[1];
+        ttt = tmp.split(",");
+        yyy = ttt[0].toDouble();
+
+        ttt = tmp2.split("x");
+        tmp = ttt[1];
+        ttt = tmp.split(" ");
+        tmp = ttt[1];
+        ttt = tmp.split(",");
+        xxx = ttt[0].toDouble();
+
+        ttt = tmp3.split("z");
+        tmp = ttt[1];
+        ttt = tmp.split(" ");
+        tmp = ttt[1];
+        ttt = tmp.split(",");
+        zzz = ttt[0].toDouble();
+
+        ttt = tmp3.split("w");
+        tmp = ttt[1];
+        ttt = tmp.split(" ");
+        tmp = ttt[1];
+        ttt = tmp.split("}");
+        command = ttt[0].toDouble();
+
+        //if command == 7 -> skip?
+        if(command == 7) {
+            return;
+        }
     }
 
     ui->widget->test_button(one, two, three, four);
