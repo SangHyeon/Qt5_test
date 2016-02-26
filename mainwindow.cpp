@@ -95,6 +95,12 @@ void MainWindow::onConnectServer(){
     QByteArray JSON2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/NASANG\"}";
     QByteArray JSON3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/NASANG\"}";
     QByteArray JSON4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/NASANG\"}";
+
+    QByteArray TARGET1 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/TARGET_POS\"}";
+    QByteArray TARGET2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/TARGET_POS\"}";
+    QByteArray TARGET3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/TARGET_POS\"}";
+    QByteArray TARGET4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/TARGET_POS\"}";
+
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
     QByteArray ADVER2 = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_ahn\", \"type\":\"std_msgs/String\"}";
     TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
@@ -104,6 +110,12 @@ void MainWindow::onConnectServer(){
     tcpSocket.write(JSON2, JSON2.size());
     tcpSocket.write(JSON3, JSON3.size());
     tcpSocket.write(JSON4, JSON4.size());
+
+    tcpSocket.write(TARGET1, TARGET1.size());
+    tcpSocket.write(TARGET2, TARGET2.size());
+    tcpSocket.write(TARGET3, TARGET3.size());
+    tcpSocket.write(TARGET4, TARGET4.size());
+
     tcpSocket.write(ADVER, ADVER.size());
     tcpSocket.write(ADVER2, ADVER2.size());
     tcpSocket.write(TOPIC, TOPIC.size());
@@ -178,32 +190,52 @@ void MainWindow::getPosition(QString s) {
     zzz = ttt[0].toDouble();
 
     if(num[1] == "FIRST") {
+        num = num[2].split("\"");
+        qDebug() << num[0];
+
+        one[0] = xxx*(-1);
+        one[2] = yyy;
+        one[1] = zzz;
+
+        ui->drone_first->setText(QString("Drone 1 :   %1    %2    %3").arg(one[0]).arg(one[2]).arg(one[1]));
+
         one[0] = xxx*(-1)*3;
         one[2] = yyy*3;
         one[1] = zzz;
-
-        ui->drone_first->setText(QString("Drone 1 :   %1    %2    %3").arg(one[0]).arg(one[1]).arg(one[2]));
     }
     else if(num[1] == "SECOND") {
+        two[0] = xxx*(-1);
+        two[2] = yyy;
+        two[1] = zzz;
+
+        ui->drone_second->setText(QString("Drone 2 :   %1    %2    %3").arg(two[0]).arg(two[2]).arg(two[1]));
+
         two[0] = xxx*(-1)*3;
         two[2] = yyy*3;
         two[1] = zzz;
-
-        ui->drone_second->setText(QString("Drone 2 :   %1    %2    %3").arg(two[0]).arg(two[1]).arg(two[2]));
     }
     else if(num[1] == "THIRD") {
+        three[0] = xxx*(-1);
+        three[2] = yyy;
+        three[1] = zzz;
+
+        ui->drone_third->setText(QString("Drone 3 :   %1    %2    %3").arg(three[0]).arg(three[2]).arg(three[1]));
+
         three[0] = xxx*(-1)*3;
         three[2] = yyy*3;
         three[1] = zzz;
-
-        ui->drone_third->setText(QString("Drone 3 :   %1    %2    %3").arg(three[0]).arg(three[1]).arg(three[2]));
     }
     else if(num[1] == "FOURTH") {
+        four[0] = xxx*(-1);
+        four[2] = yyy;
+        four[1] = zzz;
+
+        ui->drone_fourth->setText(QString("Drone 4 :   %1    %2    %3").arg(four[0]).arg(four[2]).arg(four[1]));
+
         four[0] = xxx*(-1)*3;
         four[2] = yyy*3;
         four[1] = zzz;
 
-        ui->drone_fourth->setText(QString("Drone 4 :   %1    %2    %3").arg(four[0]).arg(four[1]).arg(four[2]));
     }
     else {
         qDebug() <<"==============================ERROR=============================";
