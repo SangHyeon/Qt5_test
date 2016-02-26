@@ -25,19 +25,27 @@ public:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
-    void test_button(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
+    void get_position(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
+    void get_target(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
+    void set_target(int n);
 
 signals:
 
 public slots:
 
 private:
+    int target_flag;
     QTimer qtimer;
     //float x, y, z;
     GLfloat one[3];
     GLfloat two[3];
     GLfloat three[3];
     GLfloat four[3];
+
+    GLfloat target_one[3];
+    GLfloat target_two[3];
+    GLfloat target_three[3];
+    GLfloat target_four[3];
 
     GLfloat rotationX;
     GLfloat rotationY;

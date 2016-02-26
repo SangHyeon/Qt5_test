@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     manual_flag = 0;
     auto_flag = 0;
     form_flag = 0;
+    debug_flag = 0;
     ui->setupUi(this);
 
     this->nextBlockSize = 0;
@@ -156,7 +157,7 @@ void MainWindow::readMessage() {
     //tcpSocket.write(TOPIC, TOPIC.size());
     //qDebug() << "===========fuck==========";
     //}
-    ui->widget->test_button(one, two, three, four);
+    ui->widget->get_position(one, two, three, four);
 }
 
 void MainWindow::getPosition(QString s) {
@@ -239,9 +240,13 @@ void MainWindow::getPosition(QString s) {
 
         }
         else {
-            qDebug() <<"==============================ERROR=============================";
+            qDebug() <<"============POS===============ERROR=============================";
         }
-    } else if(mod[0] == "TARGET_POS") {
+
+
+        ui->widget->get_position(one, two, three, four);
+    }
+    else if(mod[0] == "TARGET_POS") {
         ttt = tmp.split("y");
         tmp = ttt[1];
         ttt = tmp.split(" ");
@@ -270,13 +275,112 @@ void MainWindow::getPosition(QString s) {
         ttt = tmp.split("}");
         command = ttt[0].toDouble();
 
-        //if command == 7 -> skip?
-        if(command == 7) {
-            return;
+
+        //we need only command value of 0, 1, 2
+        if(num[1] == "FIRST") {
+            if(command == 0) {
+                if(xxx == 0 && yyy == 0 && zzz == 0) {
+                    target_one[0] = one[0];
+                    target_one[2] = one[2];
+                    target_one[1] = one[1] + 500;
+                }
+            }
+            else if(command == 1) {
+                if(yyy == 0 || zzz == 0) {
+                    //target position is current position
+                    target_one[0] = one[0];
+                    target_one[2] = one[2];
+                    target_one[1] = one[1];
+                }
+                else {
+                    target_one[0] = xxx;
+                    target_one[2] = yyy;
+                    target_one[1] = zzz;
+                }
+            }
+            else
+                qDebug() <<"============TARGET=============ERROR=============================";
+
         }
+        else if(num[1] == "SECOND") {
+            if(command == 0) {
+                if(xxx == 0 && yyy == 0 && zzz == 0) {
+                    target_two[0] = two[0];
+                    target_two[2] = two[2];
+                    target_two[1] = two[1] + 500;
+                }
+            }
+            else if(command == 1) {
+                if(yyy == 0 || zzz == 0) {
+                    //target position is current position
+                    target_two[0] = two[0];
+                    target_two[2] = two[2];
+                    target_two[1] = two[1];
+                }
+                else {
+                    target_two[0] = xxx;
+                    target_two[2] = yyy;
+                    target_two[1] = zzz;
+                }
+            }
+            else
+                qDebug() <<"============TARGET=============ERROR=============================";
+        }
+        else if(num[1] == "THIRD") {
+            if(command == 0) {
+                if(xxx == 0 && yyy == 0 && zzz == 0) {
+                    target_three[0] = three[0];
+                    target_three[2] = three[2];
+                    target_three[1] = three[1] + 500;
+                }
+            }
+            else if(command == 1) {
+                if(yyy == 0 || zzz == 0) {
+                    //target position is current position
+                    target_three[0] = three[0];
+                    target_three[2] = three[2];
+                    target_three[1] = three[1];
+                }
+                else {
+                    target_three[0] = xxx;
+                    target_three[2] = yyy;
+                    target_three[1] = zzz;
+                }
+            }
+            else
+                qDebug() <<"============TARGET=============ERROR=============================";
+        }
+        else if(num[1] == "FOURTH") {
+            if(command == 0) {
+                if(xxx == 0 && yyy == 0 && zzz == 0) {
+                    target_four[0] = four[0];
+                    target_four[2] = four[2];
+                    target_four[1] = four[1] + 500;
+                }
+            }
+            else if(command == 1) {
+                if(yyy == 0 || zzz == 0) {
+                    //target position is current position
+                    target_four[0] = four[0];
+                    target_four[2] = four[2];
+                    target_four[1] = four[1];
+                }
+                else {
+                    target_four[0] = xxx;
+                    target_four[2] = yyy;
+                    target_four[1] = zzz;
+                }
+            }
+            else
+                qDebug() <<"============TARGET=============ERROR=============================";
+        }
+        else {
+            qDebug() <<"============TARGET NUM=============ERROR=============================";
+        }
+
+        ui->widget->get_target(target_one, target_two, target_three, target_four);
     }
 
-    ui->widget->test_button(one, two, three, four);
 
     qDebug() << xxx << yyy << zzz;
 }
@@ -291,7 +395,7 @@ void MainWindow::error() {
     //qDebug(tcpSocket.errorString().toUtf8());
     connect_flag = 0;
     qDebug("Server Error");
-    ui->connectButton->setText("connect");
+    ui->connectButton->setText("&Connect");
 }
 
 void MainWindow::on_connectButton_clicked()
@@ -301,7 +405,7 @@ void MainWindow::on_connectButton_clicked()
         qDebug("socket close");
 
         tcpSocket.close();
-        ui->connectButton->setText("connect");
+        ui->connectButton->setText("&Connect");
         disconnect_flag = 1;
     }
 }
@@ -533,4 +637,18 @@ void MainWindow::on_auto_button_clicked()
     form_flag = 0;
     landing_flag = 0;
     takeoff_flag = 0;
+}
+
+void MainWindow::on_debug_button_clicked()
+{
+    if(debug_flag == 0) {
+        debug_flag = 1;
+        ui->widget->set_target(debug_flag);
+        ui->debug_button->setText("&Debug_OFF");
+    }
+    else {
+        debug_flag = 0;
+        ui->widget->set_target(debug_flag);
+        ui->debug_button->setText("&Debug_ON");
+    }
 }

@@ -83,6 +83,8 @@ private slots:
 
     void on_auto_button_clicked();
 
+    void on_debug_button_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -97,6 +99,7 @@ private:
     int form_flag;
     int landing_flag;
     int takeoff_flag;
+    int debug_flag;
 
     QByteArray TOPIC;
     QByteArray TOPIC2;
@@ -105,6 +108,12 @@ private:
     GLfloat two[3];
     GLfloat three[3];
     GLfloat four[3];
+
+    GLfloat target_one[3];
+    GLfloat target_two[3];
+    GLfloat target_three[3];
+    GLfloat target_four[3];
+
 
 };
 

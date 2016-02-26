@@ -3,6 +3,7 @@
 #include "axis.h"
 #include "drone.h"
 #include "ground.h"
+#include "target.h"
 #include <algorithm>
 
 GLWidget::GLWidget(QWidget *parent) :
@@ -10,6 +11,8 @@ GLWidget::GLWidget(QWidget *parent) :
 {   
     connect(&qtimer, SIGNAL(timeout()), this, SLOT(update()));
     qtimer.start(16);
+
+    target_flag = 0;
 
     setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
     scaling = 1.0f;
@@ -48,11 +51,23 @@ void GLWidget::initializeGL()
     redColor.specular = Color4F( 0.3, 0.0, 0.0, 1.0f );
     redColor.shiness = 43.4f;
 
+    Material t_redColor;
+    t_redColor.ambient = Color4F( 0.6, 0.0, 0.0, 1.0f );
+    t_redColor.diffuse = Color4F( 0.6, 0.0, 0.0, 1.0f );
+    t_redColor.specular = Color4F( 0.6, 0.0, 0.0, 1.0f );
+    t_redColor.shiness = 63.4f;
+
     Material greenColor;
     greenColor.ambient = Color4F( 0.0, 0.3, 0.0, 1.0f );
     greenColor.diffuse = Color4F( 0.0, 0.3, 0.0, 1.0f );
     greenColor.specular = Color4F( 0.0, 0.3, 0.0, 1.0f );
     greenColor.shiness = 43.4f;
+
+    Material t_greenColor;
+    t_greenColor.ambient = Color4F( 0.0, 0.6, 0.0, 1.0f );
+    t_greenColor.diffuse = Color4F( 0.0, 0.6, 0.0, 1.0f );
+    t_greenColor.specular = Color4F( 0.0, 0.6, 0.0, 1.0f );
+    t_greenColor.shiness = 43.4f;
 
     Material blueColor;
     blueColor.ambient = Color4F( 0.0, 0.0, 0.3, 1.0f );
@@ -60,11 +75,23 @@ void GLWidget::initializeGL()
     blueColor.specular = Color4F( 0.0, 0.0, 0.3, 1.0f );
     blueColor.shiness = 43.4f;
 
+    Material t_blueColor;
+    t_blueColor.ambient = Color4F( 0.0, 0.0, 0.6, 1.0f );
+    t_blueColor.diffuse = Color4F( 0.0, 0.0, 0.6, 1.0f );
+    t_blueColor.specular = Color4F( 0.0, 0.0, 0.6, 1.0f );
+    t_blueColor.shiness = 43.4f;
+
     Material goldColor;
     goldColor.ambient = Color4F( 0.24725f, 0.2245f, 0.0645f, 1.0f );
     goldColor.diffuse = Color4F( 0.34615f, 0.3143f, 0.0903f, 1.0f );
     goldColor.specular = Color4F( 0.797357f, 0.723991f, 0.366065f, 1.0f );
     goldColor.shiness = 63.4f;
+
+    Material t_goldColor;
+    t_goldColor.ambient = Color4F( 0.44725f, 0.4245f, 0.0845f, 1.0f );
+    t_goldColor.diffuse = Color4F( 0.54615f, 0.5143f, 0.1103f, 1.0f );
+    t_goldColor.specular = Color4F( 0.897357f, 0.823991f, 0.566065f, 1.0f );
+    t_goldColor.shiness = 63.4f;
 
     Material bronzeColor;
     bronzeColor.ambient = Color4F( 0.2125f, 0.1275f, 0.054f, 1.0f );
@@ -97,6 +124,26 @@ void GLWidget::initializeGL()
     d4->setPosition(400,  100, 100);
     d4->setRotation(0, 0, 0);
 
+    Target* t1 = new Target;
+    t1->setMaterial(t_goldColor);
+    t1->setPosition(0, 0, 0);
+    t1->setRotation(0, 0, 0);
+
+    Target* t2 = new Target;
+    t2->setMaterial(t_redColor);
+    t2->setPosition(0, 0, 0);
+    t2->setRotation(0, 0, 0);
+
+    Target* t3 = new Target;
+    t3->setMaterial(t_greenColor);
+    t3->setPosition(0, 0, 0);
+    t3->setRotation(0, 0, 0);
+
+    Target* t4 = new Target;
+    t4->setMaterial(t_blueColor);
+    t4->setPosition(0, 0, 0);
+    t4->setRotation(0, 0, 0);
+
     Cube* c1 = new Cube;
     c1->setMaterial(bronzeColor);
     c1->setPosition(450,  0, 0);
@@ -117,6 +164,10 @@ void GLWidget::initializeGL()
     objects.push_back(d2);   
     objects.push_back(d3);
     objects.push_back(d4);
+    objects.push_back(t1);
+    objects.push_back(t2);
+    objects.push_back(t3);
+    objects.push_back(t4);
     objects.push_back(c1);
     objects.push_back(c2);
     objects.push_back(c3);
@@ -227,7 +278,34 @@ void GLWidget::paintGL() {
             objects[i]->setPosition(three[0], three[1], three[2]);
         else if(i == 4)
             objects[i]->setPosition(four[0], four[1], four[2]);
-
+        else if(i == 5) {
+            if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_one[0], target_one[1], target_one[2]);
+            }
+        }
+        else if(i == 6) {
+            if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_two[0], target_two[1], target_two[2]);
+            }
+        }
+        else if(i == 7) {
+            if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_three[0], target_three[1], target_three[2]);
+            }
+        }
+        else if(i == 8) {
+            if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_four[0], target_four[1], target_four[2]);
+            }
+        }
         objects[i]->draw();
     }
 
@@ -238,7 +316,7 @@ void GLWidget::resizeGL(int w, int h) {
     glViewport(0,0, w, h);
 }
 
-void GLWidget::test_button(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four) {
+void GLWidget::get_position(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four) {
     one[0]=t_one[0];
     one[1]=t_one[1];
     one[2]=t_one[2];
@@ -254,4 +332,26 @@ void GLWidget::test_button(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLf
     four[0]=t_four[0];
     four[1]=t_four[1];
     four[2]=t_four[2];
+}
+
+void GLWidget::get_target(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four) {
+    target_one[0]=t_one[0];
+    target_one[1]=t_one[1];
+    target_one[2]=t_one[2];
+
+    target_two[0]=t_two[0];
+    target_two[1]=t_two[1];
+    target_two[2]=t_two[2];
+
+    target_three[0]=t_three[0];//130;
+    target_three[1]=t_three[1];
+    target_three[2]=t_three[2];//110;
+
+    target_four[0]=t_four[0];
+    target_four[1]=t_four[1];
+    target_four[2]=t_four[2];
+}
+
+void GLWidget::set_target(int n) {
+    target_flag = n;
 }
