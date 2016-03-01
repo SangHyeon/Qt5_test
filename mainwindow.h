@@ -103,6 +103,8 @@ private:
     int takeoff_flag;
     int debug_flag;
 
+    QString ip_address;
+
     QByteArray TOPIC;
     QByteArray TOPIC2;
 

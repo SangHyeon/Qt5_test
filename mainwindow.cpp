@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
     auto_flag = 0;
     form_flag = 0;
     debug_flag = 0;
+    ip_address = "";
+
     ui->setupUi(this);
 
     this->nextBlockSize = 0;
@@ -71,7 +73,7 @@ void MainWindow::connectToServer() {
 
     qDebug() << "In connect To Server "<<connect_flag;
     if(connect_flag == 0) {
-        tcpSocket.connectToHost("112.108.39.230", 9090);
+        tcpSocket.connectToHost(ip_address, 9090);
     }
     else if(connect_flag == 1 && disconnect_flag == 1) {
         connect_flag = 0;
@@ -661,5 +663,5 @@ void MainWindow::on_debug_button_clicked()
 
 void MainWindow::on_lineEdit_editingFinished()
 {
-
+    ip_address = ui->lineEdit->displayText();
 }
