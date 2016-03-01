@@ -71,7 +71,7 @@ void MainWindow::connectToServer() {
 
     qDebug() << "In connect To Server "<<connect_flag;
     if(connect_flag == 0) {
-        tcpSocket.connectToHost("112.108.39.236", 9090);
+        tcpSocket.connectToHost("112.108.39.230", 9090);
     }
     else if(connect_flag == 1 && disconnect_flag == 1) {
         connect_flag = 0;
@@ -92,8 +92,10 @@ void MainWindow::onConnectServer(){
 
     QByteArray msg = "raw\r\n\r\n";
     //QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/say_hello_world\"}";
-    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/NASANG\"}";
-    QByteArray JSON2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/NASANG\"}";
+    //QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/NASANG\"}";
+    //QByteArray JSON2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/NASANG\"}";
+    QByteArray JSON = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/CURRENT_POS\"}";
+    QByteArray JSON2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/CURRENT_POS\"}";
     QByteArray JSON3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/NASANG\"}";
     QByteArray JSON4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/NASANG\"}";
 
@@ -172,7 +174,7 @@ void MainWindow::getPosition(QString s) {
     qDebug() << mod[0];
 
 
-    if(mod[0] == "NASANG") {
+    if(mod[0] == "CURRENT_POS") {//NASANG
         ttt = tmp.split("y");
         tmp = ttt[1];
         ttt = tmp.split(" ");
@@ -247,6 +249,10 @@ void MainWindow::getPosition(QString s) {
         ui->widget->get_position(one, two, three, four);
     }
     else if(mod[0] == "TARGET_POS") {
+        //{"topic": "/FOURTH/TARGET_POS", "msg": {"y": 0.0, "x": 0.0, "z": 0.0, "w": 0.0}, "op": "publish"}
+        //{"topic": "/THIRD/TARGET_POS", "msg": {"y": 0.0, "x": 0.0, "z": 0.0, "w": 0.0}, "op": "publish"}
+        //{"topic": "/FIRST/TARGET_POS", "msg": {"y": 0.0, "x": 0.0, "z": 0.0, "w": 0.0}, "op": "publish"}
+        //{"topic": "/SECOND/TARGET_POS", "msg": {"y": 0.0, "x": 0.0, "z": 0.0, "w": 0.0}, "op": "publish"}
         ttt = tmp.split("y");
         tmp = ttt[1];
         ttt = tmp.split(" ");
@@ -651,4 +657,9 @@ void MainWindow::on_debug_button_clicked()
         ui->widget->set_target(debug_flag);
         ui->debug_button->setText("&Debug_ON");
     }
+}
+
+void MainWindow::on_lineEdit_editingFinished()
+{
+
 }

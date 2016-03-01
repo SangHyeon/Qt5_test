@@ -264,6 +264,19 @@
           <string>SPEED :    0</string>
          </property>
         </widget>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>211</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>IP_Adress</string>
+         </property>
+        </widget>
        </widget>
       </item>
       <item row="2" column="1">
