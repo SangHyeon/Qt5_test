@@ -325,9 +325,9 @@ void GLWidget::get_position(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GL
     two[1]=t_two[1];
     two[2]=t_two[2];
 
-    three[0]=t_three[0];//130;
+    three[0]=t_three[0];
     three[1]=t_three[1];
-    three[2]=t_three[2];//110;
+    three[2]=t_three[2];
 
     four[0]=t_four[0];
     four[1]=t_four[1];
@@ -343,9 +343,9 @@ void GLWidget::get_target(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfl
     target_two[1]=t_two[1];
     target_two[2]=t_two[2];
 
-    target_three[0]=t_three[0];//130;
+    target_three[0]=t_three[0];
     target_three[1]=t_three[1];
-    target_three[2]=t_three[2];//110;
+    target_three[2]=t_three[2];
 
     target_four[0]=t_four[0];
     target_four[1]=t_four[1];

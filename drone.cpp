@@ -25,7 +25,6 @@ void Drone::draw()
     glRotatef(p_roty, 0.0f, 1.0f, 0.0f);
     glRotatef(_rotz, 0.0f, 0.0f, 1.0f);
 
-
     glScalef(16, 1, 3);
     glutSolidSphere(5, 100, 100);
 
@@ -36,7 +35,6 @@ void Drone::draw()
     glRotatef(_rotx, 1.0f, 0.0f, 0.0f);
     glRotatef(p_roty*(-1), 0.0f, 1.0f, 0.0f);
     glRotatef(_rotz, 0.0f, 0.0f, 1.0f);
-
 
     glScalef(16, 1, 3);
     glutSolidSphere(5, 100, 100);
@@ -49,7 +47,6 @@ void Drone::draw()
     glRotatef(p_roty, 0.0f, 1.0f, 0.0f);
     glRotatef(_rotz, 0.0f, 0.0f, 1.0f);
 
-
     glScalef(16, 1, 3);
     glutSolidSphere(5, 100, 100);
 
@@ -60,7 +57,6 @@ void Drone::draw()
     glRotatef(_rotx, 1.0f, 0.0f, 0.0f);
     glRotatef(p_roty*(-1), 0.0f, 1.0f, 0.0f);
     glRotatef(_rotz, 0.0f, 0.0f, 1.0f);
-
 
     glScalef(16, 1, 3);
     glutSolidSphere(5, 100, 100);
@@ -112,7 +108,6 @@ void Drone::draw()
     glutSolidCone(4, 3, 30, 30);
 
     glPopMatrix();
-
 
     ///////////////////////////////////////////////
 
