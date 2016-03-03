@@ -23,11 +23,14 @@ public:
     void paintGL();
     void resizeGL(int w, int h);
     void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
     void get_position(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
     void get_target(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
     void set_target(int n);
+
+    void unProject(int xCursor, int yCursor);
 
 signals:
 
@@ -35,8 +38,9 @@ public slots:
 
 private:
     int target_flag;
+    int drag_flag;
     QTimer qtimer;
-    //float x, y, z;
+    GLdouble wx, wy, wz;
     GLfloat one[3];
     GLfloat two[3];
     GLfloat three[3];

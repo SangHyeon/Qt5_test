@@ -13,6 +13,7 @@ GLWidget::GLWidget(QWidget *parent) :
     qtimer.start(16);
 
     target_flag = 0;
+    drag_flag = 0;
 
     setFormat(QGLFormat(QGL::DoubleBuffer | QGL::DepthBuffer));
     scaling = 1.0f;
@@ -161,13 +162,14 @@ void GLWidget::initializeGL()
 
     objects.push_back(xxx);
     objects.push_back(d1);
-    objects.push_back(d2);   
+    objects.push_back(d2);
     objects.push_back(d3);
     objects.push_back(d4);
     objects.push_back(t1);
     objects.push_back(t2);
     objects.push_back(t3);
     objects.push_back(t4);
+    objects.push_back(t3);
     objects.push_back(c1);
     objects.push_back(c2);
     objects.push_back(c3);
@@ -217,6 +219,9 @@ void GLWidget::initializeGL()
     glMatrixMode(GL_PROJECTION);
     glViewport(0,0, w, h);
     gluPerspective(60.0f, (float)w / (float)h, 0.5f, 50000.0f);
+    //gluOrtho2D(-400, 800, -225, 225);
+    //glOrtho(-400,800, -225, 225, 5, 1000);
+    //glOrtho(3000, -3000, -3000, 3000, -3000, 13000);
     gluLookAt(0.0f, 0.0f, 4500, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
     glMatrixMode(GL_MODELVIEW);
 
@@ -225,10 +230,20 @@ void GLWidget::initializeGL()
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
+    drag_flag = 0;
+}
+
+void GLWidget::mouseReleaseEvent(QMouseEvent *event) {
+    if(drag_flag)
+        return;
+    drag_flag = 0;
+
+    unProject(lastPos.x(), lastPos.y());
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
+    drag_flag = 1;
     GLfloat dx = GLfloat(event->x() - lastPos.x()) / width();
     GLfloat dy = GLfloat(event->y() - lastPos.y()) / height();
     if (event->buttons() & Qt::LeftButton) {
@@ -306,6 +321,11 @@ void GLWidget::paintGL() {
                 objects[i]->setPosition(target_four[0], target_four[1], target_four[2]);
             }
         }
+        else if(i == 9) {
+            if(target_flag == 0)
+                continue;
+            objects[i]->setPosition(wx, -2100, wz);
+        }
         objects[i]->draw();
     }
 
@@ -354,4 +374,27 @@ void GLWidget::get_target(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfl
 
 void GLWidget::set_target(int n) {
     target_flag = n;
+}
+
+
+void GLWidget::unProject(int xCursor, int yCursor)
+{
+    GLdouble projection[16];
+    GLdouble modelView[16];
+    GLint viewPort[4];
+    glGetDoublev(GL_PROJECTION_MATRIX,projection);
+    glGetDoublev(GL_MODELVIEW_MATRIX,modelView);
+    glGetIntegerv(GL_VIEWPORT,viewPort);
+
+    GLfloat zCursor,winX,winY;
+    winX = (float)xCursor;
+    winY = (float)viewPort[3]-(float)yCursor;
+    glReadPixels((int)winX, (int)winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &zCursor);
+
+    if(gluUnProject(winX,winY,zCursor,modelView,projection,viewPort,&wx,&wy,&wz)==GLU_FALSE) {
+        qDebug() << "FAIL!!!!";
+    }
+    else {
+        qDebug() << wx << " " << wy << " " << wz;
+    }
 }

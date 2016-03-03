@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     auto_flag = 0;
     form_flag = 0;
     debug_flag = 0;
-    ip_address = "";
+    ip_address = "112.108.39.230";
 
     ui->setupUi(this);
 
@@ -108,7 +108,7 @@ void MainWindow::onConnectServer(){
 
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
     QByteArray ADVER2 = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_ahn\", \"type\":\"std_msgs/String\"}";
-    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"4\"}}";
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"5\"}}";
     TOPIC2 = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_ahn\", \"msg\" : {\"data\":\"10\"}}";
     tcpSocket.write(msg, msg.size());
     tcpSocket.write(JSON, JSON.size());

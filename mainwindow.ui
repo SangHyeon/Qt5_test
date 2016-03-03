@@ -274,7 +274,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>IP_Adress</string>
+          <string>112.108.39.230</string>
          </property>
         </widget>
         <widget class="QLabel" name="label">
