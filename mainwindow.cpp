@@ -26,21 +26,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->horizontalSlider->setRange(1, 50);
     ui->horizontalSlider->setValue(10);
 
-    one[0]=130;
-    one[1]=140;
-    one[2]=190;
+    one[0]=0;
+    one[1]=0;
+    one[2]=0;
 
-    two[0]=110;
-    two[1]=170;
-    two[2]=130;
+    two[0]=0;
+    two[1]=0;
+    two[2]=0;
 
-    three[0]=0;//130;
-    three[1]=140;
-    three[2]=0;//110;
+    three[0]=0;
+    three[1]=0;
+    three[2]=0;
 
-    four[0]=170;
-    four[1]=140;
-    four[2]=160;
+    four[0]=0;
+    four[1]=0;
+    four[2]=0;
 
 }
 

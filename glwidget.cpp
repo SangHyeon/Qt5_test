@@ -192,7 +192,7 @@ void GLWidget::initializeGL()
     int h = 450;
     //0 : x 1 : z 2 : y
     one[0]=0;
-    one[1]=-100;
+    one[1]=0;
     one[2]=0;
 
     two[0]=0;
@@ -299,18 +299,25 @@ void GLWidget::paintGL() {
     for(int i = 0 ; i < (int)objects.size() ; ++ i)
     {
         if(i == 1) {
-            //objects[i]->setPosition(300, -1800, 2400);
+            if(one[0] == 0 && one[1] == 0 && one[2] == 0)
+                continue;
             objects[i]->setPosition(one[0], one[1], one[2]);
-            //one[0] = 300;
-            //one[1] = -1800;
-            //one[2] = 2400;
         }
-        else if(i == 2)
+        else if(i == 2) {
+            if(two[0] == 0 && two[1] == 0 && two[2] == 0)
+                continue;
             objects[i]->setPosition(two[0], two[1], two[2]);
-        else if(i == 3)
+        }
+        else if(i == 3) {
+            if(three[0] == 0 && three[1] == 0 && three[2] == 0)
+                continue;
             objects[i]->setPosition(three[0], three[1], three[2]);
-        else if(i == 4)
+        }
+        else if(i == 4) {
+            if(four[0] == 0 && four[1] == 0 && four[2] == 0)
+                continue;
             objects[i]->setPosition(four[0], four[1], four[2]);
+        }
 //        else if(i == 5) {
 //            if(target_flag == 0)
 //                continue;
