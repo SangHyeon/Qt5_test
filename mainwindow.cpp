@@ -101,10 +101,10 @@ void MainWindow::onConnectServer(){
     QByteArray JSON3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/NASANG\"}";
     QByteArray JSON4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/NASANG\"}";
 
-    QByteArray TARGET1 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/TARGET_POS\"}";
-    QByteArray TARGET2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/TARGET_POS\"}";
-    QByteArray TARGET3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/TARGET_POS\"}";
-    QByteArray TARGET4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/TARGET_POS\"}";
+//    QByteArray TARGET1 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FIRST/TARGET_POS\"}";
+//    QByteArray TARGET2 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/SECOND/TARGET_POS\"}";
+//    QByteArray TARGET3 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/THIRD/TARGET_POS\"}";
+//    QByteArray TARGET4 = "{ \"op\" : \"subscribe\" , \"topic\" : \"/FOURTH/TARGET_POS\"}";
 
     QByteArray ADVER = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_kun\", \"type\":\"std_msgs/String\"}";
     QByteArray ADVER2 = "{ \"op\" : \"advertise\" , \"topic\" : \"/hello_ahn\", \"type\":\"std_msgs/String\"}";
@@ -116,10 +116,10 @@ void MainWindow::onConnectServer(){
     tcpSocket.write(JSON3, JSON3.size());
     tcpSocket.write(JSON4, JSON4.size());
 
-    tcpSocket.write(TARGET1, TARGET1.size());
-    tcpSocket.write(TARGET2, TARGET2.size());
-    tcpSocket.write(TARGET3, TARGET3.size());
-    tcpSocket.write(TARGET4, TARGET4.size());
+//    tcpSocket.write(TARGET1, TARGET1.size());
+//    tcpSocket.write(TARGET2, TARGET2.size());
+//    tcpSocket.write(TARGET3, TARGET3.size());
+//    tcpSocket.write(TARGET4, TARGET4.size());
 
     tcpSocket.write(ADVER, ADVER.size());
     tcpSocket.write(ADVER2, ADVER2.size());
