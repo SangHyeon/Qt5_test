@@ -177,10 +177,10 @@ void GLWidget::initializeGL()
     objects.push_back(d2);
     objects.push_back(d3);
     objects.push_back(d4);
-    objects.push_back(t1);
-    objects.push_back(t2);
-    objects.push_back(t3);
-    objects.push_back(t4);
+    //objects.push_back(t1);
+    //objects.push_back(t2);
+    //objects.push_back(t3);
+    //objects.push_back(t4);
     objects.push_back(t3);
     objects.push_back(g);
     objects.push_back(c3);
@@ -311,35 +311,35 @@ void GLWidget::paintGL() {
             objects[i]->setPosition(three[0], three[1], three[2]);
         else if(i == 4)
             objects[i]->setPosition(four[0], four[1], four[2]);
+//        else if(i == 5) {
+//            if(target_flag == 0)
+//                continue;
+//            else {
+//                objects[i]->setPosition(target_one[0], target_one[1], target_one[2]);
+//            }
+//        }
+//        else if(i == 6) {
+//            if(target_flag == 0)
+//                continue;
+//            else {
+//                objects[i]->setPosition(target_two[0], target_two[1], target_two[2]);
+//            }
+//        }
+//        else if(i == 7) {
+//            if(target_flag == 0)
+//                continue;
+//            else {
+//                objects[i]->setPosition(target_three[0], target_three[1], target_three[2]);
+//            }
+//        }
+//        else if(i == 8) {
+//            if(target_flag == 0)
+//                continue;
+//            else {
+//                objects[i]->setPosition(target_four[0], target_four[1], target_four[2]);
+//            }
+//        }
         else if(i == 5) {
-            if(target_flag == 0)
-                continue;
-            else {
-                objects[i]->setPosition(target_one[0], target_one[1], target_one[2]);
-            }
-        }
-        else if(i == 6) {
-            if(target_flag == 0)
-                continue;
-            else {
-                objects[i]->setPosition(target_two[0], target_two[1], target_two[2]);
-            }
-        }
-        else if(i == 7) {
-            if(target_flag == 0)
-                continue;
-            else {
-                objects[i]->setPosition(target_three[0], target_three[1], target_three[2]);
-            }
-        }
-        else if(i == 8) {
-            if(target_flag == 0)
-                continue;
-            else {
-                objects[i]->setPosition(target_four[0], target_four[1], target_four[2]);
-            }
-        }
-        else if(i == 9) {
             wy = one[1];
             if(target_flag == 0)
                 continue;
@@ -349,13 +349,13 @@ void GLWidget::paintGL() {
             }
             objects[i]->setPosition(wx, one[1], wz);
         }
-        else if(i == 10) {
+        else if(i == 6) {
             if(target_flag == 0)
                 continue;
             objects[i]->setPosition(0, one[1]-5, 5000);
             objects[i]->draw();
         }
-        else if(i == 11){
+        else if(i == 7){
             if(target_flag == 0)
                 objects[i]->setPosition(0, -2750, 0);
             else
