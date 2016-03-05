@@ -4,6 +4,7 @@
 #include "drone.h"
 #include "ground.h"
 #include "target.h"
+#include "move_ground.h"
 #include <algorithm>
 
 GLWidget::GLWidget(QWidget *parent) :
@@ -100,6 +101,12 @@ void GLWidget::initializeGL()
     bronzeColor.specular = Color4F( 0.3935f, 0.2719f, 0.1667f, 1.0f );
     bronzeColor.shiness = 25.6f;
 
+    Material gColor;
+    gColor.ambient = Color4F( 0.0, 0.0, 0.0, 1.0f );
+    gColor.diffuse = Color4F( 0.0, 0.0, 0.0, 1.0f );
+    gColor.specular = Color4F( 0.0, 0.0, 0.0, 1.0f );
+    gColor.shiness = 43.4f;
+
     Axis* xxx = new Axis;
     xxx->setMaterial(bronzeColor);
     xxx->setPosition(0, 0, 0);
@@ -145,6 +152,11 @@ void GLWidget::initializeGL()
     t4->setPosition(0, 0, 0);
     t4->setRotation(0, 0, 0);
 
+    move_ground* g = new move_ground;
+    g->setMaterial(gColor);
+    g->setPosition(0, -2850, 5000);
+    g->setRotation(0, 0, 0);
+
     Cube* c1 = new Cube;
     c1->setMaterial(bronzeColor);
     c1->setPosition(450,  0, 0);
@@ -170,9 +182,10 @@ void GLWidget::initializeGL()
     objects.push_back(t3);
     objects.push_back(t4);
     objects.push_back(t3);
+    objects.push_back(g);
+    objects.push_back(c3);
     objects.push_back(c1);
     objects.push_back(c2);
-    objects.push_back(c3);
 
 
     int w = 800;
@@ -285,8 +298,13 @@ void GLWidget::paintGL() {
 
     for(int i = 0 ; i < (int)objects.size() ; ++ i)
     {
-        if(i == 1)
+        if(i == 1) {
+            //objects[i]->setPosition(300, -1800, 2400);
             objects[i]->setPosition(one[0], one[1], one[2]);
+            //one[0] = 300;
+            //one[1] = -1800;
+            //one[2] = 2400;
+        }
         else if(i == 2)
             objects[i]->setPosition(two[0], two[1], two[2]);
         else if(i == 3)
@@ -322,9 +340,26 @@ void GLWidget::paintGL() {
             }
         }
         else if(i == 9) {
+            wy = one[1];
             if(target_flag == 0)
                 continue;
-            objects[i]->setPosition(wx, -2100, wz);
+            else if(wx > 4900 || wx < -4900 || wz > 9000 || wz < 30 || wy < -2700 || wy > -500) {
+                //qDebug() << "OUT OF RANGE!";
+                continue;
+            }
+            objects[i]->setPosition(wx, one[1], wz);
+        }
+        else if(i == 10) {
+            if(target_flag == 0)
+                continue;
+            objects[i]->setPosition(0, one[1]-5, 5000);
+            objects[i]->draw();
+        }
+        else if(i == 11){
+            if(target_flag == 0)
+                objects[i]->setPosition(0, -2750, 0);
+            else
+                objects[i]->setPosition(0, one[1], 0);
         }
         objects[i]->draw();
     }
@@ -391,10 +426,16 @@ void GLWidget::unProject(int xCursor, int yCursor)
     winY = (float)viewPort[3]-(float)yCursor;
     glReadPixels((int)winX, (int)winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &zCursor);
 
+    if(target_flag == 0)
+        return;
     if(gluUnProject(winX,winY,zCursor,modelView,projection,viewPort,&wx,&wy,&wz)==GLU_FALSE) {
         qDebug() << "FAIL!!!!";
     }
+    else if(wx > 4900 || wx < -4900 || wz > 9000 || wz < 30 || wy < -2700 || wy > -500) {
+        qDebug() << "OUT OF RANGE!";
+    }
     else {
-        qDebug() << wx << " " << wy << " " << wz;
+        //qDebug() << wx << " " << wy << " " << wz;
+        qDebug() << "GO" << wx/(-3) << " " << wz/3 << " " << one[1];
     }
 }
