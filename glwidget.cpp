@@ -42,9 +42,9 @@ void GLWidget::initializeGL()
     //ground = 2700
 
     Material whiteColor;
-    whiteColor.ambient = Color4F( 0.3, 0.3, 0.3, 0.3f );
-    whiteColor.diffuse = Color4F( 0.3, 0.3, 0.3, 0.3f );
-    whiteColor.specular = Color4F( 0.3, 0.3, 0.3, 0.3f );
+    whiteColor.ambient = Color4F( 0.3, 0.3, 0.3, 2.3f );
+    whiteColor.diffuse = Color4F( 0.3, 0.3, 0.3, 2.3f );
+    whiteColor.specular = Color4F( 0.3, 0.3, 0.3, 2.3f );
     whiteColor.shiness = 3.4f;
 
     Material redColor;
