@@ -665,3 +665,11 @@ void MainWindow::on_lineEdit_editingFinished()
 {
     ip_address = ui->lineEdit->displayText();
 }
+
+void MainWindow::on_form5_button_clicked()
+{
+    if(auto_flag == 0)
+        return;
+    TOPIC = "{ \"op\" : \"publish\" , \"topic\" : \"/hello_kun\", \"msg\" : {\"data\":\"13\"}}";
+    tcpSocket.write(TOPIC, TOPIC.size());
+}

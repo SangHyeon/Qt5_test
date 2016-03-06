@@ -30,6 +30,20 @@
       <property name="rightMargin">
        <number>10</number>
       </property>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="stop_button">
+        <property name="text">
+         <string>&amp;STOP</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QPushButton" name="form5_button">
+        <property name="text">
+         <string>Scenario3</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="0">
        <widget class="QPushButton" name="auto_button">
         <property name="text">
@@ -48,13 +62,6 @@
        <widget class="QPushButton" name="form3_button">
         <property name="text">
          <string>Scenario 1</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>&amp;Quit</string>
         </property>
        </widget>
       </item>
@@ -299,13 +306,6 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="stop_button">
-        <property name="text">
-         <string>&amp;STOP</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="take_off_button">
         <property name="text">
@@ -331,6 +331,13 @@
        <widget class="QPushButton" name="debug_button">
         <property name="text">
          <string>&amp;Debug_ON</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>&amp;Quit</string>
         </property>
        </widget>
       </item>

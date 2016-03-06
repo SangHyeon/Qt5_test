@@ -87,6 +87,8 @@ private slots:
 
     void on_lineEdit_editingFinished();
 
+    void on_form5_button_clicked();
+
 private:
     Ui::MainWindow *ui;
 
