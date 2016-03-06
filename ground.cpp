@@ -11,9 +11,9 @@ void Ground::draw()
     glMaterialfv(GL_FRONT, GL_DIFFUSE, d);
     glMaterialf(GL_FRONT, GL_SHININESS, _material.shiness);
 
-    for(int i=0; i<=50; i++) {
+    for(int i=0; i<=25; i++) {
         glPushMatrix();
-        glTranslatef(_posx, _posy, _posz+i*200);
+        glTranslatef(_posx, _posy, _posz+i*400);
         glRotatef(_rotx, 1.0f, 0.0f, 0.0f);
         glRotatef(_roty, 0.0f, 1.0f, 0.0f);
         glRotatef(_rotz, 0.0f, 0.0f, 1.0f);
@@ -24,9 +24,9 @@ void Ground::draw()
         glPopMatrix();
     }
 
-    for(int i=0; i<=50; i++) {
+    for(int i=0; i<=25; i++) {
         glPushMatrix();
-        glTranslatef((_posx-5000)+i*200, _posy, _posz+5000);
+        glTranslatef((_posx-5000)+i*400, _posy, _posz+5000);
         glRotatef(_rotx, 1.0f, 0.0f, 0.0f);
         glRotatef(_roty+90, 0.0f, 1.0f, 0.0f);
         glRotatef(_rotz, 0.0f, 0.0f, 1.0f);
