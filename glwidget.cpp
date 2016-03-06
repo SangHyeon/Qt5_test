@@ -232,9 +232,6 @@ void GLWidget::initializeGL()
     glMatrixMode(GL_PROJECTION);
     glViewport(0,0, w, h);
     gluPerspective(60.0f, (float)w / (float)h, 0.5f, 50000.0f);
-    //gluOrtho2D(-400, 800, -225, 225);
-    //glOrtho(-400,800, -225, 225, 5, 1000);
-    //glOrtho(3000, -3000, -3000, 3000, -3000, 13000);
     gluLookAt(0.0f, 0.0f, 4500, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
     glMatrixMode(GL_MODELVIEW);
 
@@ -301,22 +298,22 @@ void GLWidget::paintGL() {
         if(i == 1) {
             if(one[0] == 0 && one[1] == 0 && one[2] == 0)
                 continue;
-            objects[i]->setPosition(one[0], one[1], one[2]);
+            objects[i]->setPosition(one[0]-300, one[1], one[2]);
         }
         else if(i == 2) {
             if(two[0] == 0 && two[1] == 0 && two[2] == 0)
                 continue;
-            objects[i]->setPosition(two[0], two[1], two[2]);
+            objects[i]->setPosition(two[0]-300, two[1], two[2]);
         }
         else if(i == 3) {
             if(three[0] == 0 && three[1] == 0 && three[2] == 0)
                 continue;
-            objects[i]->setPosition(three[0], three[1], three[2]);
+            objects[i]->setPosition(three[0]-300, three[1], three[2]);
         }
         else if(i == 4) {
             if(four[0] == 0 && four[1] == 0 && four[2] == 0)
                 continue;
-            objects[i]->setPosition(four[0], four[1], four[2]);
+            objects[i]->setPosition(four[0]-300, four[1], four[2]);
         }
 //        else if(i == 5) {
 //            if(target_flag == 0)
