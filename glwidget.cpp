@@ -113,44 +113,44 @@ void GLWidget::initializeGL()
     xxx->setRotation(0, 0, 0);
 
     Drone* d1 = new Drone;
-    d1->setMaterial(goldColor);
+    d1->setMaterial(t_goldColor);
     d1->setPosition(100,  100, 100);
     d1->setRotation(0, 0, 0);
 
     Drone* d2 = new Drone;
-    d2->setMaterial(redColor);
+    d2->setMaterial(t_redColor);
     d2->setPosition(200,  100, 100);
     d2->setRotation(0, 0, 0);
 
     Drone* d3 = new Drone;
-    d3->setMaterial(greenColor);
+    d3->setMaterial(t_greenColor);
     d3->setPosition(300,  100, 100);
     d3->setRotation(0, 0, 0);
 
     Drone* d4 = new Drone;
-    d4->setMaterial(blueColor);
+    d4->setMaterial(t_blueColor);
     d4->setPosition(400,  100, 100);
     d4->setRotation(0, 0, 0);
 
     Target* t1 = new Target;
-    t1->setMaterial(t_goldColor);
+    t1->setMaterial(goldColor);
     t1->setPosition(0, 0, 0);
     t1->setRotation(0, 0, 0);
 
-    Target* t2 = new Target;
-    t2->setMaterial(t_redColor);
-    t2->setPosition(0, 0, 0);
-    t2->setRotation(0, 0, 0);
+//    Target* t2 = new Target;
+//    t2->setMaterial(redColor);
+//    t2->setPosition(0, 0, 0);
+//    t2->setRotation(0, 0, 0);
 
-    Target* t3 = new Target;
-    t3->setMaterial(t_greenColor);
-    t3->setPosition(0, 0, 0);
-    t3->setRotation(0, 0, 0);
+//    Target* t3 = new Target;
+//    t3->setMaterial(greenColor);
+//    t3->setPosition(0, 0, 0);
+//    t3->setRotation(0, 0, 0);
 
-    Target* t4 = new Target;
-    t4->setMaterial(t_blueColor);
-    t4->setPosition(0, 0, 0);
-    t4->setRotation(0, 0, 0);
+//    Target* t4 = new Target;
+//    t4->setMaterial(t_blueColor);
+//    t4->setPosition(0, 0, 0);
+//    t4->setRotation(0, 0, 0);
 
     move_ground* g = new move_ground;
     g->setMaterial(gColor);
@@ -181,7 +181,7 @@ void GLWidget::initializeGL()
     //objects.push_back(t2);
     //objects.push_back(t3);
     //objects.push_back(t4);
-    objects.push_back(t3);
+    objects.push_back(t1);
     objects.push_back(g);
     objects.push_back(c3);
     objects.push_back(c1);
