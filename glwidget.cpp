@@ -137,20 +137,20 @@ void GLWidget::initializeGL()
     t1->setPosition(0, 0, 0);
     t1->setRotation(0, 0, 0);
 
-//    Target* t2 = new Target;
-//    t2->setMaterial(redColor);
-//    t2->setPosition(0, 0, 0);
-//    t2->setRotation(0, 0, 0);
+    Target* t2 = new Target;
+    t2->setMaterial(redColor);
+    t2->setPosition(0, 0, 0);
+    t2->setRotation(0, 0, 0);
 
-//    Target* t3 = new Target;
-//    t3->setMaterial(greenColor);
-//    t3->setPosition(0, 0, 0);
-//    t3->setRotation(0, 0, 0);
+    Target* t3 = new Target;
+    t3->setMaterial(greenColor);
+    t3->setPosition(0, 0, 0);
+    t3->setRotation(0, 0, 0);
 
-//    Target* t4 = new Target;
-//    t4->setMaterial(t_blueColor);
-//    t4->setPosition(0, 0, 0);
-//    t4->setRotation(0, 0, 0);
+    Target* t4 = new Target;
+    t4->setMaterial(blueColor);
+    t4->setPosition(0, 0, 0);
+    t4->setRotation(0, 0, 0);
 
     move_ground* g = new move_ground;
     g->setMaterial(gColor);
@@ -177,10 +177,10 @@ void GLWidget::initializeGL()
     objects.push_back(d2);
     objects.push_back(d3);
     objects.push_back(d4);
-    //objects.push_back(t1);
-    //objects.push_back(t2);
-    //objects.push_back(t3);
-    //objects.push_back(t4);
+    objects.push_back(t1);
+    objects.push_back(t2);
+    objects.push_back(t3);
+    objects.push_back(t4);
     objects.push_back(t1);
     objects.push_back(g);
     objects.push_back(c3);
@@ -298,54 +298,54 @@ void GLWidget::paintGL() {
         if(i == 1) {
             if(one[0] == 0 && one[1] == 0 && one[2] == 0)
                 continue;
-            objects[i]->setPosition(one[0]-300, one[1], one[2]);
+            objects[i]->setPosition(one[0]-150, one[1], one[2]);
         }
         else if(i == 2) {
             if(two[0] == 0 && two[1] == 0 && two[2] == 0)
                 continue;
-            objects[i]->setPosition(two[0]-300, two[1], two[2]);
+            objects[i]->setPosition(two[0]-150, two[1], two[2]);
         }
         else if(i == 3) {
             if(three[0] == 0 && three[1] == 0 && three[2] == 0)
                 continue;
-            objects[i]->setPosition(three[0]-300, three[1], three[2]);
+            objects[i]->setPosition(three[0]-150, three[1], three[2]);
         }
         else if(i == 4) {
             if(four[0] == 0 && four[1] == 0 && four[2] == 0)
                 continue;
-            objects[i]->setPosition(four[0]-300, four[1], four[2]);
+            objects[i]->setPosition(four[0]-150, four[1], four[2]);
         }
-//        else if(i == 5) {
-//            if(target_flag == 0)
-//                continue;
-//            else {
-//                objects[i]->setPosition(target_one[0], target_one[1], target_one[2]);
-//            }
-//        }
-//        else if(i == 6) {
-//            if(target_flag == 0)
-//                continue;
-//            else {
-//                objects[i]->setPosition(target_two[0], target_two[1], target_two[2]);
-//            }
-//        }
-//        else if(i == 7) {
-//            if(target_flag == 0)
-//                continue;
-//            else {
-//                objects[i]->setPosition(target_three[0], target_three[1], target_three[2]);
-//            }
-//        }
-//        else if(i == 8) {
-//            if(target_flag == 0)
-//                continue;
-//            else {
-//                objects[i]->setPosition(target_four[0], target_four[1], target_four[2]);
-//            }
-//        }
         else if(i == 5) {
-            wy = one[1];
             if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_one[0], target_one[1], target_one[2]);
+            }
+        }
+        else if(i == 6) {
+            if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_two[0], target_two[1], target_two[2]);
+            }
+        }
+        else if(i == 7) {
+            if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_three[0], target_three[1], target_three[2]);
+            }
+        }
+        else if(i == 8) {
+            if(target_flag == 0)
+                continue;
+            else {
+                objects[i]->setPosition(target_four[0], target_four[1], target_four[2]);
+            }
+        }
+        else if(i == 9) {
+            wy = one[1];
+            if(move_flag == 0)
                 continue;
             else if(wx > 4900 || wx < -4900 || wz > 9000 || wz < 30 || wy < -2700 || wy > -500) {
                 //qDebug() << "OUT OF RANGE!";
@@ -353,14 +353,14 @@ void GLWidget::paintGL() {
             }
             objects[i]->setPosition(wx, one[1], wz);
         }
-        else if(i == 6) {
-            if(target_flag == 0)
+        else if(i == 10) {
+            if(move_flag == 0)
                 continue;
             objects[i]->setPosition(0, one[1]-5, 5000);
             objects[i]->draw();
         }
-        else if(i == 7){
-            if(target_flag == 0)
+        else if(i == 11){
+            if(move_flag == 0)
                 objects[i]->setPosition(0, -2750, 0);
             else
                 objects[i]->setPosition(0, one[1], 0);
@@ -411,8 +411,13 @@ void GLWidget::get_target(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfl
     target_four[2]=t_four[2];
 }
 
+
 void GLWidget::set_target(int n) {
     target_flag = n;
+}
+
+void GLWidget::set_move(int n) {
+    move_flag = n;
 }
 
 
@@ -430,7 +435,7 @@ void GLWidget::unProject(int xCursor, int yCursor)
     winY = (float)viewPort[3]-(float)yCursor;
     glReadPixels((int)winX, (int)winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &zCursor);
 
-    if(target_flag == 0)
+    if(move_flag == 0)
         return;
     if(gluUnProject(winX,winY,zCursor,modelView,projection,viewPort,&wx,&wy,&wz)==GLU_FALSE) {
         qDebug() << "FAIL!!!!";
@@ -440,6 +445,6 @@ void GLWidget::unProject(int xCursor, int yCursor)
     }
     else {
         //qDebug() << wx << " " << wy << " " << wz;
-        qDebug() << "GO" << wx/(-3) << " " << wz/3 << " " << one[1];
+        qDebug() << "GO" << wx/(-3) << " " << wz/3 << " " << one[1];//(x, y, z)
     }
 }

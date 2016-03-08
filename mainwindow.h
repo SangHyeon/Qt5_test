@@ -77,7 +77,7 @@ private slots:
 
     void on_manual_button_clicked();
 
-    void on_horizontalSlider_valueChanged(int value);
+//    void on_horizontalSlider_valueChanged(int value);
 
     void on_form4_button_clicked();
 
@@ -88,6 +88,8 @@ private slots:
     void on_lineEdit_editingFinished();
 
     void on_form5_button_clicked();
+
+    void on_target_button_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -104,11 +106,12 @@ private:
     int landing_flag;
     int takeoff_flag;
     int debug_flag;
+    int target_flag;
 
     QString ip_address;
 
     QByteArray TOPIC;
-    QByteArray TOPIC2;
+    //QByteArray TOPIC2;
 
     GLfloat one[3];
     GLfloat two[3];

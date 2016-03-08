@@ -23,6 +23,7 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <zorder></zorder>
      </widget>
     </item>
     <item>
@@ -37,45 +38,10 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="2">
-       <widget class="QPushButton" name="form5_button">
-        <property name="text">
-         <string>Scenario3</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="auto_button">
-        <property name="text">
-         <string>&amp;AUTO</string>
-        </property>
-       </widget>
-      </item>
       <item row="3" column="1">
        <widget class="QPushButton" name="form2_button">
         <property name="text">
          <string>Mode 2</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="form3_button">
-        <property name="text">
-         <string>Scenario 1</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QPushButton" name="form4_button">
-        <property name="text">
-         <string>Scenario 2</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="form1_button">
-        <property name="text">
-         <string>Mode 1</string>
         </property>
        </widget>
       </item>
@@ -197,7 +163,7 @@
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>350</y>
+           <y>310</y>
            <width>211</width>
            <height>16</height>
           </rect>
@@ -210,7 +176,7 @@
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>380</y>
+           <y>340</y>
            <width>211</width>
            <height>16</height>
           </rect>
@@ -223,7 +189,7 @@
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>410</y>
+           <y>370</y>
            <width>211</width>
            <height>16</height>
           </rect>
@@ -236,7 +202,7 @@
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>440</y>
+           <y>400</y>
            <width>211</width>
            <height>16</height>
           </rect>
@@ -245,30 +211,17 @@
           <string>Drone 4 :</string>
          </property>
         </widget>
-        <widget class="QSlider" name="horizontalSlider">
+        <widget class="QLabel" name="drone_mode">
          <property name="geometry">
           <rect>
-           <x>50</x>
-           <y>300</y>
-           <width>160</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-        <widget class="QLabel" name="drone_speed">
-         <property name="geometry">
-          <rect>
-           <x>80</x>
-           <y>270</y>
-           <width>101</width>
+           <x>70</x>
+           <y>280</y>
+           <width>131</width>
            <height>16</height>
           </rect>
          </property>
          <property name="text">
-          <string>SPEED :    0</string>
+          <string>MODE :  STOP</string>
          </property>
         </widget>
         <widget class="QLineEdit" name="lineEdit">
@@ -330,7 +283,7 @@
       <item row="3" column="2">
        <widget class="QPushButton" name="debug_button">
         <property name="text">
-         <string>&amp;Debug_ON</string>
+         <string>Move_ON</string>
         </property>
        </widget>
       </item>
@@ -338,6 +291,48 @@
        <widget class="QPushButton" name="pushButton">
         <property name="text">
          <string>&amp;Quit</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="auto_button">
+        <property name="text">
+         <string>&amp;AUTO</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QPushButton" name="form5_button">
+        <property name="text">
+         <string>Scenario3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="form3_button">
+        <property name="text">
+         <string>Scenario 1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="form4_button">
+        <property name="text">
+         <string>Scenario 2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="form1_button">
+        <property name="text">
+         <string>Mode 1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QPushButton" name="target_button">
+        <property name="text">
+         <string>Target_ON</string>
         </property>
        </widget>
       </item>

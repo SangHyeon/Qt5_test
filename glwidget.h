@@ -29,6 +29,7 @@ public:
     void get_position(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
     void get_target(GLfloat *t_one, GLfloat *t_two, GLfloat *t_three, GLfloat *t_four);
     void set_target(int n);
+    void set_move(int n);
 
     void unProject(int xCursor, int yCursor);
 
@@ -38,6 +39,7 @@ public slots:
 
 private:
     int target_flag;
+    int move_flag;
     int drag_flag;
     QTimer qtimer;
     GLdouble wx, wy, wz;
